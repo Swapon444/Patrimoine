@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Connexion</title>
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/css/connection.min.css">
+
+        {{{favicons}}}
+
+    </head>
+    <body>
+        <nav class="top-bar" data-topbar role="navigation">
+
+          <ul class="title-area">
+              <li class="name">
+                  <h1>
+                      <a href="#"><img src="{{PUBLIC_ABSOLUTE_PATH}}/assets/logo_petit.png" alt="image projet" height="35" width="35"></a>
+                  </h1>
+              </li>
+          </ul>
+
+          <section class="top-bar-section">
+              <!-- Left Nav Section -->
+              <ul id="siteCaption" class="left">
+                  <li><a href="#">Projet patrimoine</a></li>
+              </ul>
+              <ul id="guide" class="right">
+                <li><a href="{{SERVER_ABSOLUTE_PATH}}/guide">Guide d'utilisation</a></li>
+              </ul>
+          </section>
+        </nav>
+        <section class="row valign">
+            <div class="medium-offset-1 small-8 small-offset-2 medium-5 columns small-text-center ">
+                <img src="{{PUBLIC_ABSOLUTE_PATH}}/assets/logo_petit.png" alt="image projet">
+            </div>
+            <div class="small-12 medium-5 columns end">
+                <h1>Connexion</h1>
+                {{#Error}}
+                    <div class="small-12">
+                        <div class="alert-box errorbox"><span>Erreur: </span>Informations invalides.</div>
+                    </div>
+                {{/Error}}
+                {{#Disconnection}}
+                    <div class="small-12">
+                        <div class="alert-box successfull">Vous avez été déconnecté.</div>
+                    </div>
+                {{/Disconnection}}
+                {{#Registration}}
+                    <div class="small-12">
+                        <div class="alert-box successfull"><span>Merci pour votre inscription:</span><br>Votre compte sera activé après vérification de l'administrateur.<br>Veuillez noter que cela peut prendre jusqu'à 24h.</div>
+                    </div>
+                {{/Registration}}
+                {{#Inactivated}}
+                    <div class="small-12">
+                        <div class="alert-box successfull">Votre compte n'est pas encore activé.</div>
+                    </div>
+                {{/Inactivated}}
+                {{#Forgot}}
+                    <div class="small-12">
+                        <div class="alert-box successfull">Si le courriel fourni est lié à un compte. <br>Vous recevrez un courriel de redirection sous peu.</div>
+                    </div>
+                {{/Forgot}}
+                <form id="postform" method="POST" target="_self" action="{{SERVER_ABSOLUTE_PATH}}/connexion/login">
+                    <input type="text" id="txtUserName" name="txtUserName" placeholder="E-Mail">
+                    <input type="password" id="txtPassword" name="txtPassword" placeholder="Mot de passe">
+                    <div class="row">
+                        <div class="small-8 columns">
+                            <input type="checkbox" name="chkConnection"> Mémoriser<br>
+                            <a href="{{SERVER_ABSOLUTE_PATH}}/inscription">S'inscrire</a>
+                        </div>
+                        <div class="small-4 columns">
+                            <input class="button right" type="submit" id="btnConnection" name="btnConnection" value="Connexion"><br>
+                        </div>
+                    </div>
+                    <a href="#" data-reveal-id="passwordforgot">Mot de passe oublié ?</a><br>
+                </form>
+            </div>
+        </section>
+
+        <div id="passwordforgot" class="reveal-modal small" data-reveal>
+            <h2></h2>
+            <form method="POST" target="_self" action="{{SERVER_ABSOLUTE_PATH}}/connexion/forgot" data-abide>
+                <p>Veuillez entrer le courriel relié au compte voulu:</p>
+                <div class="email-field">
+                    <input name="txtUserNameForgot" type="email" placeholder="E-Mail" required>
+                    <small class="error">Entrer un courriel valide.</small>
+                </div>
+                <input id="btnModalforgot" type="submit" class="success button" value="Accepter">
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/connection.min.js"></script>
+
+    </body>
+</html>

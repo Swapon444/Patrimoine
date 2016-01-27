@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inscription - Patrimoine</title>
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+        <link rel="stylesheet" type="text/css" href="{{PUBLIC_ABSOLUTE_PATH}}/css/inscription.min.css">
+
+        {{{favicons}}}
+
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/vendor/modernizr.js"></script>
+    </head>
+    <body id="test">
+
+        <section class="registration">
+            <div class="row">
+                <div class="small-offset-2 small-8 column medium-offset-4 medium-4">
+                    <h1>Inscription</h1>
+                    {{#Error}}
+                        <div class="small-12">
+                            <div class="alert-box errorbox"><span>Erreur: </span>{{ErrorMSG}}</div>
+                        </div>
+                    {{/Error}}
+                    <form id="registrationform" method="post" target="_self" action="{{SERVER_ABSOLUTE_PATH}}/inscription/register" data-abide>
+                        <div class="name-field">
+                            <input name="txtFirstName" value="{{FirstName}}" type="text" placeholder="Prénom" required >
+                            <small class="error">Un prénom est requis</small>
+                        </div>
+                        <div class="name-field">
+                            <input name="txtLastName" value="{{LastName}}" type="text" placeholder="Nom" required >
+                            <small class="error">Un prénom est requis</small>
+                        </div>
+                        <div class="tel-field">
+                            <input name="txtPhone" value="{{Phone}}" type="tel" placeholder="Numéro de téléphone" required>
+                            <small class="error">Un numéro de téléphone valide est nécessaire</small>
+                        </div>
+                        <div class="email-field">
+                            <input name="txtMail" value="{{Email}}" type="email" placeholder="E-Mail" required>
+                            <small class="error">Entrer un courriel valide.</small>
+                        </div>
+                        <div class="password-field">
+                            <input name="txtPassword" type="password" placeholder="Mot de passe" id="password" required >
+                            <small class="error">Votre mot de passe ne respecte pas les critères de sécurité.</small>
+                        </div>
+                        <div class="password-confirmation-field">
+                            <input name="txtPasswordConfirm" type="password" placeholder="Confirmer mot de passe" required data-equalto="password">
+                            <small class="error">Vos mot de passes ne correspondent pas.</small>
+                        </div>
+                        <div class="small-12 clearfix">
+                            <input id="btnCancel" class="button small right" name="btnCancel" type="button" value="Annuler">
+                            <input class="button small right" name="btnSubmit" type="submit" value="Soumettre">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/config.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/registration.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE HTML>
+<html class="no-js" lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gestion Objets - Patrimoine</title>
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.min.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/dropzone/dropzone.min.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/css/manageitems.min.css">
+
+        {{{favicons}}}
+
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
+    </head>
+
+    <body>
+
+        <!-- Barre de navigation -->
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="{{SERVER_ABSOLUTE_PATH}}/connexion"><img src="{{PUBLIC_ABSOLUTE_PATH}}/assets/logo_petit.png" alt="image projet" height="35" width="35"></a></h1>
+                </li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+            <section class="top-bar-section">
+                <ul class="right">
+                    {{#isFamilyAdmin}}
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/moderation">Comptes</a></li>
+                    <li class="divider"></li>
+                    {{/isFamilyAdmin}}
+
+                    {{#isMod}}
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/moderation">Comptes</a></li>
+                    <li class="divider"></li>
+                    {{/isMod}}
+
+                    <li class="active"><a href="{{SERVER_ABSOLUTE_PATH}}/objets">Patrimoine</a></li>
+                    <li class="divider"></li>
+
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/mesprets">Mes prêts</a></li>
+                    <li class="divider"></li>
+
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/contacts">Contacts</a></li>
+                    <li class="divider"></li>
+
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/monprofil">{{username}}</a></li>
+                    <li class="divider"></li>
+
+                    <li class="has-form"><a class="button" href="{{SERVER_ABSOLUTE_PATH}}/connexion/logout">Déconnexion</a></li>
+                </ul>
+                <ul id="siteCaption" class="left">
+                    <li><a href="#">Projet patrimoine</a></li>
+                </ul>
+            </section>
+        </nav>
+
+        <!-- Barre d'outils -->
+        <div class="icon-bar seven-up" role="navigation">
+            <a id="btnAddItem" class="item" title="Ajouter">
+                <i class="fa fa-plus"></i>
+            </a>
+            {{^first}}
+            <a id="btnRemoveItem" class="item {{^owned}}disabled{{/owned}}" title="Supprimer">
+                <i class="fa fa-times"></i>
+            </a>
+            <a id="btnEditItem" class="item {{^owned}}disabled{{/owned}}" title="Modifier">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <a id="btnMoveItem" class="item {{^show}}disabled{{/show}} {{^owned}}disabled{{/owned}}" title="Déplacer">
+                <i class="fa fa-arrows"></i>
+            </a>
+            <a id="btnCreateReport" class="item" title="Émettre un rapport">
+                <i class="fa fa-file-text"></i>
+            </a>
+            <a id="btnLendItem" class="item {{^show}}disabled{{/show}} {{^owned}}disabled{{/owned}}" title="Prêter">
+                <i class="fa fa-share-alt"></i>
+            </a>
+            <a id="btnQrCode" class="item" title="Code QR">
+                <i class="fa fa-qrcode"></i>
+            </a>
+            {{/first}}
+            {{#first}}
+            <a id="btnRemoveItem" class="item disabled" title="Ajouter">
+                <i class="fa fa-times"></i>
+            </a>
+            <a id="btnEditItem" class="item disabled">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <a id="btnMoveItem" class="item disabled">
+                <i class="fa fa-arrows"></i>
+            </a>
+            <a id="btnCreateReport" class="item disabled">
+                <i class="fa fa-file-text"></i>
+            </a>
+            <a id="btnLendItem" class="item disabled">
+                <i class="fa fa-share-alt"></i>
+            </a>
+            <a id="btnQrCode" class="item disabled">
+                <i class="fa fa-qrcode"></i>
+            </a>
+            {{/first}}
+        </div>
+
+        <!-- Tableau de navigation des objets -->
+        <div class="hide" id="UserId">{{user}}</div>
+        {{^first}}
+        <div class="row">
+            <div class="medium-6 small-8 small-offset-2 medium-offset-0 columns">
+                <div id="searchbar">
+                    <div class="row collapse">
+                        <div class="small-10 columns">
+                            <input type="text" id="searchInput" placeholder="Rechercher">
+                        </div>
+                        <div class="small-2 columns">
+                            <a href="#" id="btnSearch" class="button expand"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="ObjectTab">
+                    <table>
+                        {{#donnees}}
+                            {{#head}}
+                                <tr>
+                                    <th>
+                                        {{#link}}
+                                        <a href="#" onclick="newSelectedObject({{id}},{{user}})">{{name}}</a>
+                                        {{/link}}
+                                        {{^link}}
+                                            <div id="selectedId" class="hide">{{id}}</div>
+                                            {{name}}
+                                        {{/link}}
+                                    </th>
+                                </tr>
+                            {{/head}}
+                            {{#other}}
+                                <tr>
+                                    <td>
+                                        {{^container}}<em class="small-tab">{{/container}}
+                                        {{#plus}}
+                                            <strong>
+                                                <a href="#" onclick="showMore({{target}},{{user}},16)">{{name}}</a>
+                                            </strong>
+                                        {{/plus}}
+                                        {{^plus}}
+                                            <a href="#" onclick="newSelectedObject({{id}},{{user}})">{{name}}</a>
+                                        {{/plus}}
+                                        {{^container}}</em>{{/container}}
+                                    </td>
+                                </tr>
+                            {{/other}}
+                        {{/donnees}}
+                    </table>
+                </div>
+
+                <!-- Zone d'information sur l'objet actif -->
+                <div class="row">
+                    <div id="ObjectInfo">
+                        <h3>Informations</h3>
+                        {{#infos}}
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblName">Nom:</label>
+                            </div>
+                            <div id="divName" class="medium-8 small-12 columns">
+                                {{name}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblOwner">Propriétaire:</label>
+                            </div>
+                            <div id="divOwner" class="medium-8 small-12 columns">
+                                {{owner}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblInitValue">Valeur unitaire initiale:</label>
+                            </div>
+                            <div id="divInitValue" class="medium-8 small-12 columns">
+                                {{initvalue}}$
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblValue">Valeur unitaire actuelle:</label>
+                            </div>
+                            <div id="divValue" class="medium-8 small-12 columns">
+                                {{value}}$
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblQuantity">Quantité:</label>
+                            </div>
+                            <div id="divQuantity" class="medium-8 small-12 columns">
+                                {{quantity}}
+                            </div>
+                        </div>
+
+                        <div class="row" id="divContentValue" {{^container}}hidden{{/container}}>
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblContentValue">Valeur du contenu:</label>
+                            </div>
+                            <div id="divInfoContentValue" class="medium-8 small-12 columns">
+                                {{contentvalue}}$
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblTotalValue">Valeur totale:</label>
+                            </div>
+                            <div id="divTotalValue" class="medium-8 small-12 columns">
+                                {{totalvalue}}$
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblWarranty">Fin de Garantie:</label>
+                            </div>
+                            <div id="divWarranty" class="medium-8 small-12 columns">
+                                {{warranty}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblSummary">Description:</label>
+                            </div>
+                            <div id="divSummary" class="medium-8 small-12 columns">
+                                {{summary}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 small-12 columns">
+                                <label id="lblInfo">Informations:</label>
+                            </div>
+                            <div id="divInfo" class="medium-8 small-12 columns">
+                                {{info}}
+                            </div>
+                        </div>
+                        {{/infos}}
+                    </div>
+                </div>
+                {{/first}}
+
+            </div>
+            <div id="ObjectImage" class="medium-6 column">
+                <div class="row image-picker">
+                    <div class="columns view-zone">
+                        <a class="th [radius]" href="#">
+                            <img id="currentImage" alt="Objet actuel" data-image-id="{{currentImageId}}" src="{{{currentImage}}}">
+                        </a>
+
+                        <ul id="image-options" class="button-group round">
+                            <li><a id="btnUploadImage" href="#" class="button small"><i class="fa fa-lg fa-plus-circle"></i></a></li>
+                            <li><a id="btnEditZones" href="#" class="button small"><i class="fa fa-lg fa-crosshairs"></i></a></li>
+                            <li><a id="btnDeleteImage" href="#" class="button small"><i class="fa fa-lg fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="columns preview-zone">
+                    <ul id="imageList" class="small-block-grid-2">
+                        {{#images}}
+                        <li class="th [radius]"><img  data-image-id="{{ImageId}}" src="{{{ImageBlob}}}" alt="Image de l'objet en cours"></li>
+                        {{/images}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fenêtre modale d'insertion de téléversement d'image -->
+        <div id="uploadImageModal" class="reveal-modal medium" data-reveal>
+            <div class="row">
+                <div  class="small-12 columns">
+                    <form id="dropZoneContainer" action="{{SERVER_ABSOLUTE_PATH}}/objets/uploadImage" class="uploadBox">
+                        <h3 id="smallDropZoneText" class="text-center visible-for-small-only noselect animated pulse white">Toucher pour insérer une image</h3>
+                        <h3 id="mediumDropZoneText" class="text-center visible-for-medium-up noselect animated pulse white">Glisser-déposer une image ici</h3>
+                        <input type="hidden" name="objectId" value="{{id}}">
+                    </form>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="small-12 columns">
+                    <a id="submitImage" class="button success right">Téléverser &nbsp; <i class="fa fa-cloud-upload"></i></a>
+                </div>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <!--Fenêtre modale d'ajout d'un objet-->
+        <div id="addModal" class="reveal-modal medium" data-reveal>
+            <h2>Ajout</h2>
+            <form id="frmAddObject" data-abide="ajax">
+                <fieldset>
+                    <div class="name-field">
+                        <label>
+                            *Nom
+                            <input type="text" id="txtAddName" placeholder="Bureau en bois" required>
+                        </label>
+                        <small class="error">Le nom de l'objet est requis.</small>
+                    </div>
+                    <div class="name-field">
+                        <label>
+                            *Valeur unitaire initiale
+                            <input type="text" id="txtAddInitValue" placeholder="15000" required pattern="number">
+                        </label>
+                        <small class="error">La valeur initiale de l'objet est requise et doit être un nombre.</small>
+                    </div>
+                    <div class="name-field">
+                        <label>
+                            *Valeur unitaire actuelle
+                            <input type="text" id="txtAddValue" placeholder="17000" required pattern="number">
+                        </label>
+                        <small class="error">La valeur actuelle de l'objet est requise et doit être un nombre.</small>
+                    </div>
+                    <div class="name-field">
+                        <label>
+                            *Quantité
+                            <input type="text" id="txtAddQuantity" value="1" required pattern="number">
+                        </label>
+                        <small class="error">La quantité est requise et doit être un nombre.</small>
+                    </div>
+                    <div class="date-field">
+                        <label>
+                            Date de fin de garantie
+                            <input type="date" id="txtAddWarranty" placeholder="2025-02-30" pattern="date">
+                        </label>
+                        <small class="error">La date de fin de garantie doit être une date.</small>
+                    </div>
+                    <div class="text-field">
+                        <label>
+                            Description
+                            <input type="text" id="txtAddDescription" placeholder="Vieux bureau de 1930" >
+                        </label>
+                    </div>
+                    <div class="date-field">
+                        <label>
+                            Informations:
+                            <textarea id="txtAddInformation" ></textarea>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 medium-6 columns">
+                            <label>Publique:</label>
+                            <div class="switch">
+                                <input id="chkAddPublic" type="checkbox" checked>
+                                <label for="chkAddPublic"></label>
+                            </div>
+                        </div>
+                        <div class="small-12 medium-6 columns">
+                            <label>Exceptions:</label>
+                            <div id="AddException">
+                                {{#famille}}
+                                    <label>{{name}}:</label>
+                                    <div class="switch">
+                                        <input class="addExcSwitch" id="addExc{{id}}" type="checkbox">
+                                        <label for="addExc{{id}}"></label>
+                                    </div>
+                                {{/famille}}
+                            </div><br>
+                            <input type="submit" class="button" value="Ajouter">
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <!--Fenêtre modale de suppression d'un objet-->
+        <div id="deleteModal" class="reveal-modal medium" data-reveal>
+            <h2>Supprimer</h2>
+            <div class="row">
+                <h5>Êtes-vous sûr de vouloir supprimer l'élément suivant:</h5>
+                <div id="deleteElement">{{#infos}}{{name}}{{/infos}}</div>
+                <a href="#" id="btnDelete" class="button">Supprimer</a>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <!--Fenêtre modale de modification d'un objet-->
+        <div id="editModal" class="reveal-modal medium" data-reveal>
+            <h2>Modifier</h2>
+            <form id="frmEditObject" data-abide="ajax">
+                <fieldset>
+                    {{#infos}}
+                    <div class="name-field">
+                        <label>
+                            *Nom
+                            <input type="text" id="txtEditName" value="{{name}}" required>
+                        </label>
+                        <small class="error">Le nom de l'objet est requis.</small>
+                    </div>
+                    <div class="name-field">
+                        <label>
+                            *Valeur unitaire initiale
+                            <input type="text" id="txtEditInitValue" value="{{initvalue}}" required pattern="number">
+                        </label>
+                        <small class="error">La valeur initiale de l'objet est requise et doit être un nombre.</small>
+                    </div>
+                    <div class="name-field">
+                        <label>
+                            *Valeur unitaire actuelle
+                            <input type="text" id="txtEditValue" value="{{value}}" required pattern="number">
+                        </label>
+                        <small class="error">La valeur actuelle de l'objet est requise et doit être un nombre.</small>
+                    </div>
+                    <div class="name-field">
+                        <label>
+                            *Quantité
+                            <input type="text" id="txtEditQuantity" value="{{quantity}}" required pattern="number">
+                        </label>
+                        <small class="error">La quantité est requise et doit être un nombre.</small>
+                    </div>
+                    <div class="date-field">
+                        <label>
+                            Date de fin de garantie
+                            <input type="date" id="txtEditWarranty" value="{{warranty}}" pattern="date">
+                        </label>
+                        <small class="error">La date de fin de garantie doit être une date.</small>
+                    </div>
+                    <div class="text-field">
+                        <label>
+                            Description
+                            <input type="text" id="txtEditDescription" value="{{summary}}" >
+                        </label>
+                    </div>
+                    <div class="date-field">
+                        <label>
+                            Informations:
+                            <textarea id="txtEditInformation" >{{info}}</textarea>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 medium-6 columns">
+                            <label>Publique:</label>
+                            <div class="switch">
+                                <input id="chkEditPublic" class="ripSectionCeption" type="checkbox" {{#public}}checked{{/public}}>
+                                <label for="chkEditPublic"></label>
+                            </div>
+                        </div>
+                        <div class="small-12 medium-6 columns">
+                            <label>Exceptions:</label>
+                            <div id="EditException">
+                                {{#famille}}
+                                <label>{{name}}:</label>
+                                <div class="switch">
+                                    <input class="editExcSwitch" id="editExc{{id}}" type="checkbox" {{#exception}}checked{{/exception}}>
+                                    <label for="editExc{{id}}"></label>
+                                </div>
+                                {{/famille}}
+                            </div><br>
+                            <input type="submit" class="button" value="Enregistrer">
+                        </div>
+                        {{/infos}}
+                    </div>
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <!--Fenêtre modale de déplacement d'un objet-->
+        <div id="moveModal" class="reveal-modal medium" data-reveal>
+            <h2>Déplacer</h2>
+            <div class="row">
+                <div id="MoveTab"></div>
+                <a href="#" id="btnMoveSubmit" class="button">Déplacer</a>
+            </div>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <!--Fenêtre modale de gestion d'un prêt -->
+        <div id="loanModal" class="reveal-modal medium" data-reveal>
+            <h2>Prêter</h2>
+            <form data-abide="ajax" id="frmLoan">
+                <div class="row">
+                    <label>
+                        Contact:
+                        <select id="cmbloanContaxt" required>
+                            {{#contacts}}
+                            <option value="{{id}}">{{name}}</option>
+                            {{/contacts}}
+                        </select>
+                    </label>
+                </div>
+                <div class="row">
+
+                        <div class="date-field">
+                            <label>
+                                Date de fin du prêt
+                                <input type="date" id="txtEndOfLoan" pattern="date">
+                            </label>
+                            <small class="error">La date de fin du prêt doit être une date.</small>
+                        </div>
+                        <input type="submit" id="btnLoanSubmit" class="button" value="Prêter">
+
+                </div>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="zoneModal" class="reveal-modal" data-reveal>
+            <h2>Zones réactives</h2>
+            <section class="row">
+                <div class="columns">
+                    <div class="row">
+                        <div class="text-center small-centered columns">
+                            <canvas id="zone-maker" width="600" height="400">Votre navigateur ne supporte pas.</canvas>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form id="frmZone" target="_self" action="{{SERVER_ABSOLUTE_PATH}}/objets/addZone" method="post">
+                            <div class="row">
+                                <div id="zones-list">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="columns">
+                                     <a id="activateZoneAddition" href="#" class="button info">Activer l'ajout de zone <i class="fa fa-unlock"></i></a>
+                                     <input id="btnSubmitZones" type="button"  class="button" value="Soumettre">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <a id="btnCloseZoneModal" class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="reportModal" class="reveal-modal" data-reveal>
+            <h2>Rapports</h2>
+            <a href="#" id="btnReportSimple" class="button">Émettre un rapport simplifié</a>
+            {{#isMod}}
+            <a href="#" id="btnReportFull" class="button">Émettre un rapport complet</a>
+            {{/isMod}}
+            {{#isFamilyAdmin}}
+            <a href="#" id="btnReportFull" class="button">Émettre un rapport complet</a>
+            {{/isFamilyAdmin}}
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/config.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/dropzone/dropzone.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/manageitems.min.js"></script>
+    </body>
+</html>
+

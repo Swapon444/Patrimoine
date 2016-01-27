@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport - Patrimoine</title>
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/css/report.min.css">
+
+    {{{favicons}}}
+
+    <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
+</head>
+<body>
+    <a href="{{SERVER_ABSOLUTE_PATH}}/objets/show/{{containerId}}" class="button hide-for-print secondary">Retour <i class="fa fa-arrow-circle-left"></i></a>
+
+    <div class="row">
+        <div class="columns">
+            <h1>Rapport de {{name}}</h1>
+            <h1 class="subheader">{{date}}</h1>
+            <hr>
+            <h1>Conteneur : {{container}}</h1>
+            <h1 class="subheader">Valeur du conteneur: {{containerValue}}$</h1>
+            <h1 class="subheader">Quantité: {{containerQuantity}}</h1>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="columns">
+            <table>
+                <thead>
+                    <th>Nom</th>
+                    <th>Valeur</th>
+                    <th>Valeur initiale</th>
+                    <th>Valeur du contenu</th>
+                    <th>Quantité</th>
+                    <th>Valeur totale</th>
+                    <th>Fin de garantie</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    {{#objects}}
+                    <tr>
+                        <td>{{ObjectName}}</td>
+                        <td>{{ObjectValue}}$</td>
+                        <td>{{ObjectInitialValue}}$</td>
+                        <td>{{ObjectContentValue}}$</td>
+                        <td>{{ObjectQuantity}}</td>
+                        <td>{{ObjectTotalValue}}$</td>
+                        <td class="text-center">{{ObjectEndWarranty}}</td>
+                        <td>{{ObjectSummary}}</td>
+                    </tr>
+                    {{/objects}}
+                </tbody>
+            </table>
+            <h1>Valeur Totale : {{total}}$</h1>
+            <a id="printReport" class="button hide-for-print">Imprimer <i class="fa fa-print"></i></a>
+        </div>
+    </div>
+
+
+
+    <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+    <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+    <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/report.min.js"></script>
+</body>
+</html>
+

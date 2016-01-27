@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrateur - Patrimoine</title>
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/css/managesystem.min.css">
+
+    {{{favicons}}}
+
+    <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
+</head>
+<body>
+<nav class="top-bar" data-topbar role="navigation">
+    <ul id="siteCaption" class="title-area">
+        <li class="name">
+            <h1><a href="{{SERVER_ABSOLUTE_PATH}}/connexion"><img src="{{PUBLIC_ABSOLUTE_PATH}}/assets/logo_petit.png" alt="image projet" height="35" width="35"></a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        <ul class="right">
+            <li><a href="#">{{username}}</a></li>
+            <li class="divider"></li>
+            <li class="has-form"><a class="button" href="{{SERVER_ABSOLUTE_PATH}}/connexion/logout">Déconnexion</a></li>
+        </ul>
+        <ul class="left">
+            <li><a href="#">Projet patrimoine</a></li>
+        </ul>
+    </section>
+</nav>
+
+<div class="row firstrow">
+    <div class="medium-6 columns">
+        <h1>Administrateurs de patrimoine</h1>
+    </div>
+    <div id="searchbar" class="medium-6 columns">
+        <div class="row collapse ">
+            <div class="small-8 columns">
+                <input type="text" id="searchInput" placeholder="Rechercher">
+            </div>
+            <div class="small-2 columns">
+                <a href="#" class="button expand disabled"><i class="fa fa-search"></i></a>
+            </div>
+            <div class="small-2 columns">
+                <a href="#" class="button expand" data-reveal-id="addModal"><i class="fa fa-user-plus"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="small-12 columns">
+        <table class="columns show-for-medium-up">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Courriel</th>
+                <th>Nom</th>
+                <th>Téléphone</th>
+                <th>Activé</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            {{#familyowners}}
+            <tr>
+                <td>{{UserId}}</td>
+                <td><a href="mailto:{{UserName}}" class="nameFixedWidth">{{UserName}}</a></td>
+                <td>{{UserInfoFirstName}} {{UserInfoLastName}}</td>
+                <td><a href="tel:{{UserInfoTel}}">{{UserInfoTel}}</a></td>
+                <td>
+                    <div class="switch tiny">
+                        <input id="chkActivation{{UserId}}" {{UserInfoStatus}} type="checkbox">
+                        <label for="chkActivation{{UserId}}"></label>
+                    </div>
+                </td>
+                <td>
+                    <ul class="button-group radius">
+                        <li><a id="btnEdit{{UserId}}" href="#" class="small button"><i class="fa fa-pencil fa-lg"></i></a></li>
+                        <li><a id="btnDelete{{UserId}}" href="#" class="small button"><i class="fa fa-trash-o fa-lg"></i></a></li>
+                    </ul>
+                </td>
+            </tr>
+            {{/familyowners}}
+            </tbody>
+        </table>
+        <ul id="mobileTable" class="small-block-grid-1">
+            {{#familyowners}}
+            <li>
+                <ul class="vcard show-for-small-only">
+                    <li class="fn">{{UserInfoFirstName}} {{UserInfoLastName}}</li>
+                    <li class="email">{{UserName}}</li>
+                    <li>{{UserInfoTel}}</li>
+                    <li>
+                        <div class="switch tiny">
+                            <input id="smallChkActivation{{UserId}}" {{UserInfoStatus}} type="checkbox">
+                            <label for="smallChkActivation{{UserId}}"></label>
+                        </div>
+                    </li>
+                    <li>
+                        <ul class="button-group radius">
+                            <li><a id="btnEdit{{UserId}}" href="#" class="small button"><i class="fa fa-pencil fa-lg"></i></a></li>
+                            <li><a id="btnDelete{{UserId}}" href="#" class="small button"><i class="fa fa-trash-o fa-lg"></i></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            {{/familyowners}}
+        </ul>
+    </div>
+</div>
+
+<div id="deleteWarning" class="reveal-modal small" data-reveal>
+    <h2>Attention</h2>
+    <p class="lead"></p>
+    <p>
+        <a class="secondary button btnModalCancel"><i class="fa fa-times"></i>&nbsp;Annuler</a>
+        <a id="btnModalDelete" class="success button"><i class="fa fa-check"></i>&nbsp;Supprimer</a>
+    </p>
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="editModal" class="reveal-modal medium" data-reveal>
+    <h2>Modification</h2>
+    <form id="frmEditFamilyOwner" data-abide="ajax">
+        <input id="UserId" type="hidden" value="">
+        <fieldset>
+            <div class="email-field">
+                <label>Nom d'utilisateur
+                    <input name="txtEditUserName" type="email" placeholder="john@doe.com">
+                </label>
+                <small class="error">Le nom d'utilisateur est requis et doit respecter le format d'une adresse courriel.</small>
+            </div>
+            <div class="alpha">
+                <label>Prénom
+                    <input name="txtEditFirstName" type="text" placeholder="John">
+                </label>
+                <small class="error">Le prénom est requis et doit contenir uniquement des lettres.</small>
+            </div>
+            <div class="alpha">
+                <label>Nom
+                    <input name="txtEditLastName" type="text" placeholder="Doe">
+                </label>
+                <small class="error">Le nom est requis et doit contenir uniquement des lettres.</small>
+            </div>
+            <div class="alpha_numeric">
+                <label>Téléphone
+                    <input name="txtEditPhone" type="tel" placeholder="1 (234) 567-8901">
+                </label>
+                <small class="error">Le Numéro de téléphone est requis.</small>
+            </div>
+            <div class="password-field">
+                <label>Mot de passe
+                    <input id="txtEditPassword" name="txtEditPassword" type="password" pattern="[a-zA-Z]+">
+                </label>
+                <small class="error">Le mot de passe doit correspondre au normes.</small>
+            </div>
+            <div class="password-confirmation-field">
+                <label>Confirmer le mot de passe
+                    <input type="password" pattern="[a-zA-Z]+" data-equalto="txtEditPassword">
+                </label>
+                <small class="error">Les mot de passes sont différents.</small>
+            </div>
+            <input type="submit" class="success button" value="Modifier">
+            <a class="secondary button btnModalCancel"><i class="fa fa-times"></i>&nbsp;Annuler</a>
+        </fieldset>
+    </form>
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="addModal" class="reveal-modal medium" data-reveal>
+    <h2>Création</h2>
+    <form id="frmAddFamilyOwner" data-abide="ajax">
+        <fieldset>
+            <div class="email-field">
+                <label>Nom d'utilisateur
+                    <input name="txtAddUserName" type="email" placeholder="john@doe.com" required>
+                </label>
+                <small class="error">Le nom d'utilisateur est requis et doit respecter le format d'une adresse courriel.</small>
+            </div>
+            <div class="alpha">
+                <label>Prénom
+                    <input name="txtAddFirstName" type="text" placeholder="John" required>
+                </label>
+                <small class="error">Le prénom est requis et doit contenir uniquement des lettres.</small>
+            </div>
+            <div class="alpha">
+                <label>Nom
+                    <input name="txtAddLastName" type="text" placeholder="Doe" required>
+                </label>
+                <small class="error">Le nom est requis et doit contenir uniquement des lettres.</small>
+            </div>
+            <div class="alpha_numeric">
+                <label>Téléphone
+                    <input name="txtAddPhone" type="tel" placeholder="1 (234) 567-8901" required>
+                </label>
+                <small class="error">Le Numéro de téléphone est requis.</small>
+            </div>
+            <div class="password-field">
+                <label>Mot de passe
+                    <input id="txtAddPassword" name="txtAddPassword" type="password" required>
+                </label>
+                <small class="error">Your password must match the requirements</small>
+            </div>
+            <div class="password-confirmation-field">
+                <label>Confirmer le mot de passe
+                    <input type="password" name="txtConfirmPassword" data-equalto="txtAddPassword" required>
+                </label>
+                <small class="error">Les mot de passes sont différents.</small>
+            </div>
+            <input type="submit" class="success button" value="Ajouter">
+            <a class="secondary button btnModalCancel"><i class="fa fa-times"></i>&nbsp;Annuler</a>
+        </fieldset>
+    </form>
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="errorModal" class="reveal-modal small" data-reveal>
+    <div id="errors"></div>
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+<script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+<script src="{{PUBLIC_ABSOLUTE_PATH}}/js/config.min.js"></script>
+<script src="{{PUBLIC_ABSOLUTE_PATH}}/js/managesystem.min.js"></script>
+</body>
+</html>
+

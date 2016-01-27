@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mot de passe</title>
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/css/connection.min.css">
+
+        {{{favicons}}}
+
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
+    </head>
+    <body>
+        <nav class="top-bar" data-topbar role="navigation">
+          <ul class="title-area">
+              <li class="name">
+                  <h1><a href="#"><img src="{{PUBLIC_ABSOLUTE_PATH}}/assets/logo_petit.png" alt="image projet" height="35" width="35"></a></h1>
+              </li>
+          </ul>
+
+          <section class="top-bar-section">
+              <!-- Left Nav Section -->
+              <ul class="left">
+                  <li><a href="#">Projet patrimoine</a></li>
+              </ul>
+          </section>
+        </nav>
+        <section class="row valign">
+            <div class="medium-offset-2 small-12 medium-3 columns small-text-center ">
+                <img src="{{PUBLIC_ABSOLUTE_PATH}}/assets/logo_petit.png" alt="image projet" height="250" width="250">
+            </div>
+			<div class="small-12 medium-5 columns end">
+                <h2>Veuillez choisir un nouveau mot de passe</h2>
+				{{#Forgot}}
+                    <div class="small-12">
+                        <div class="alert-box successfull">Votre code n'est plus valide. <br>Veuillez réessayer plus tard.</div>
+                    </div>
+                {{/Forgot}}
+			    <form method="POST" target="_self" action="{{SERVER_ABSOLUTE_PATH}}/passwordreset/resetpassword" data-abide>
+				    <div class="name-field">
+                        <input name="txtCode"  type="text" placeholder="Code fourni par courriel" required >
+                        <small class="error">Veuillez fournir le code reçu par courriel.</small>
+                    </div>
+                    <div class="password-field">
+                        <input name="txtPassword" type="password" placeholder="Mot de passe" id="password" required >
+                        <small class="error">Votre mot de passe ne respecte pas les critères de sécurité.</small>
+                    </div>
+                    <div class="password-confirmation-field">
+                        <input name="txtPasswordConfirm" type="password" placeholder="Confirmer mot de passe" required data-equalto="password">
+                        <small class="error">Vos mot de passes ne correspondent pas.</small>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <input class="button" type="submit" name="btnAccept" value="Accepter"><br>
+                        </div>
+                    </div>
+                </form>
+            </div>
+		</section>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/config.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/foundation.min.js"></script>
+	</body>
+</html>

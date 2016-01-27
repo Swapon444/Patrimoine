@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profil - Patrimoine</title>
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/css/manageprofile.min.css">
+
+        {{{favicons}}}
+
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
+    </head>
+    <body>
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="{{SERVER_ABSOLUTE_PATH}}/connexion"><img src="{{PUBLIC_ABSOLUTE_PATH}}/assets/logo_petit.png" alt="image projet" height="35" width="35"></a></h1>
+                </li>
+                    <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="right">
+                    {{#isFamilyAdmin}}
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/moderation">Comptes</a></li>
+                    <li class="divider"></li>
+                    {{/isFamilyAdmin}}
+
+                    {{#isMod}}
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/moderation">Comptes</a></li>
+                    <li class="divider"></li>
+                    {{/isMod}}
+
+                    {{#isSystemAdmin}}
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/sysadmin">Patrimoines</a></li>
+                    {{/isSystemAdmin}}
+                    {{^isSystemAdmin}}
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/objets">Patrimoine</a></li>
+                    {{/isSystemAdmin}}
+                    <li class="divider"></li>
+
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/mesprets">Mes prêts</a></li>
+                    <li class="divider"></li>
+
+                    <li><a href="{{SERVER_ABSOLUTE_PATH}}/contacts">Contacts</a></li>
+                    <li class="divider"></li>
+
+                    <li class="active"><a href="{{SERVER_ABSOLUTE_PATH}}/monprofil">{{username}}</a></li>
+                    <li class="divider"></li>
+                    <li class="has-form"><a class="button" href="{{SERVER_ABSOLUTE_PATH}}/connexion/logout">Déconnexion</a></li>
+                </ul>
+                <ul id="siteCaption" class="left">
+                    <li><a href="#">Projet patrimoine</a></li>
+                </ul>
+            </section>
+        </nav>
+        
+        <div class="row firstrow">
+            <div class="medium-6 columns">
+                <h1>Mon profil</h1>
+            </div>
+            <div id="firstbar" class="medium-6 columns">
+                <div class="row collapse ">
+                    <div class="small-6 columns text-center">
+                        <a id="btEditProfile" href="#" class="button expand" ><i class="fa fa-pencil"></i> Modifier les informations</a>
+                    </div>
+                    <div class="small-6 columns text-center">
+                        <a id="btEditPassword" href="#" class="button expand" title="Modifier le mot de passe" ><i class="fa fa-key"></i> Modifier le mot de passe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#User}}
+            <div class="row">
+                <div id="infoUser" class="columns medium-offset-3 medium-6">
+                    <input id="{{UserId}}" name="UserId" type="hidden">
+                    <div class="row">
+                        <div class="columns small-6">
+                            <b>Email :</b>
+                        </div>
+                        <div class="columns small-6">
+                            <div id="UserName">{{UserName}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="columns small-6">
+                           <b>Prénom :</b>
+                        </div>
+                        <div class="columns small-6">
+                            <div id="UserInfoFirstName">{{UserInfoFirstName}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="columns small-6">
+                            <b>Nom :</b>
+                        </div>
+                        <div class="columns small-6">
+                            <div id="UserInfoLastName">{{UserInfoLastName}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="columns small-6">
+                            <b>Téléphone :</b>
+                        </div>
+                        <div class="columns small-6">
+                            <div id="UserInfoPhone">{{UserInfoTel}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        {{/User}}
+        <div id="editProfile" class="reveal-modal small" data-reveal>
+            <form id="frmEditProfile" data-abide="ajax">
+                <fieldset>
+                    <legend>Modifier mes informations</legend>
+                    <div class="name-field">
+                        <label>Nom :
+                            <input id="txtEditFirstName" type="text" placeholder="ex : John Doe">
+                        </label>
+                        <small class="error">Le nom est requis.</small>
+                    </div>
+                    <div class="name-field">
+                        <label>Nom :
+                            <input id="txtEditLastName" type="text" placeholder="ex : John Doe">
+                        </label>
+                        <small class="error">Le nom est requis.</small>
+                    </div>
+                    <div class="email-field">
+                        <label>Courriel :
+                            <input id="txtEditMail" type="email" placeholder="ex : john.doe@mail.com">
+                        </label>
+                         <small class="error">L'email n'est pas valide.</small>
+                    </div>
+                    <div class="alpha_numeric">
+                        <label>Téléphone :
+                            <input id="txtEditPhone" type="tel" placeholder="ex : 450-321-6549">
+                        </label>
+                        <small class="error">Le téléphone est requis.</small>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 columns text-center">
+                            <button class="button radius" type="submit" value="Modifier">Modifier</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+        
+        <div id="editPassword" class="reveal-modal small" data-reveal>
+            <form id="frmEditPassword" data-abide="ajax">
+                <fieldset>
+                    <legend>Modifier mon mot de passe.</legend>
+                    <div class="password-field">
+                        <label>Mot de passe
+                            <input id="txtEditPassword" type="password" pattern="[a-zA-Z]+">
+                        </label>
+                        <small class="error">Le mot de passe doit correspondre au normes.</small>
+                    </div>
+                    <div class="password-confirmation-field">
+                        <label>Confirmer le mot de passe
+                            <input type="password" pattern="[a-zA-Z]+" data-equalto="txtEditPassword">
+                        </label>
+                        <small class="error">Les mot de passes sont différents.</small>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 columns text-center">
+                            <button class="button radius" type="submit" value="Modifier">Modifier</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+        
+
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/config.min.js"></script>
+        <script src="{{PUBLIC_ABSOLUTE_PATH}}/js/manageprofile.min.js"></script>
+    </body>
+</html>
+

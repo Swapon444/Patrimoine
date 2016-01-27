@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+    <head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Modification d'objet - Patrimoine</title>
+		<link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.css">
+		<link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+        <link rel="stylesheet" type="text/css" href="{{PUBLIC_ABSOLUTE_PATH}}/css/itemmodification.min.css">
+
+        {{{favicons}}}
+
+		<script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
+    </head>
+    <body>
+	    <section class="row">
+		    <div class="small-8 medium-6 large-4">
+			    <a class="close-reveal-modal">&#215;</a>
+			    <input name="txtName" type="text" placeholder="Nom">
+				<input name="txtValue" type="text" placeholder="Valeur">
+				<select name="selOwner">
+				    {{#familyowners}}
+				        <option value="{{Ownerid}}">{{OwnerName}}</option>
+				    {{/familyowners}}
+				</select>
+				<input name="txtDescription" type="text" placeholder="Description">
+				<input class="textarea" name="txtInformation" type="text" cols="40" rows="5" placeholder="Information Supplémentaire">
+				<input class="button" name="btnModification" type="submit" placeholder="Accepter">
+			</div>
+		</section>
+		<script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+		<script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+		<script src="{{PUBLIC_ABSOLUTE_PATH}}/js/404.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport Complet - Patrimoine</title>
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/normalize.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/css/foundation.min.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{PUBLIC_ABSOLUTE_PATH}}/css/report.min.css">
+
+    {{{favicons}}}
+
+    <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
+</head>
+<body>
+<a href="{{SERVER_ABSOLUTE_PATH}}/objets/show/{{containerId}}" class="button hide-for-print secondary">Retour <i class="fa fa-arrow-circle-left"></i></a>
+
+<div class="row">
+    <div class="columns">
+        <h1>Rapport complet de {{name}}</h1>
+        <h1 class="subheader">{{date}}</h1>
+        <hr>
+        <h1>Conteneur : {{container}}</h1>
+        <h1 class="subheader">Valeur du conteneur: {{containerValue}}$</h1>
+        <h1 class="subheader">Quantité: {{containerQuantity}}</h1>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="columns">
+        {{#objects}}
+        <div style="padding-left:{{level}}px;">
+            {{{ObjectName}}} --
+            {{ObjectTotalValue}}$
+            <br/>
+        </div>
+        {{/objects}}
+        <h1>Valeur totale : {{total}}$</h1>
+        <a id="printReport" class="button hide-for-print">Imprimer <i class="fa fa-print"></i></a>
+    </div>
+</div>
+
+
+
+<script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/jquery.min.js"></script>
+<script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/foundation/js/foundation.min.js"></script>
+<script src="{{PUBLIC_ABSOLUTE_PATH}}/js/report.min.js"></script>
+</body>
+</html>
+
