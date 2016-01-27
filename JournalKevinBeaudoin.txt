@@ -1,17 +1,18 @@
 27/01/2016
 
-8:15-9:00 : 	Description : Suivi des procéder pour faire fonctionner le site web en local
-		Résultat : Mon aide est peu utile, on est trop sur le même ordinateur
+8:15-9:00 : 	Suivi des procÃ©der pour faire fonctionner le site web en local,
+		Organisation du github		
+		RÃ©sultat : Mon aide est peu utile, on est trop sur le mÃªme ordinateur
 
-9:00-10:30 : 	Inspection du site web et test des différents bug décrit dans le document,
-		Analyse des besoins pour détecter et régler les besoins
-		Résultat : 	Demande le la BD au professeur, 
-				Compréhension des différents problèmes et ceux que je pourrais régler
+9:00-10:30 : 	Inspection du site web et test des diffÃ©rents bug dÃ©crit dans le document,
+		Analyse des besoins pour dÃ©tecter et rÃ©gler les besoins
+		RÃ©sultat : 	Demande le la BD au professeur, 
+				ComprÃ©hension des diffÃ©rents problÃ¨mes et ceux que je pourrais rÃ©gler
 
 10:30-11:50 :	Analyse de la base de donner et de leur utilisation dans le code php 
-		et l'utilisation/Affichage des données dans javascript
-		Résultat : 	-Compréhension de la structure de la base donnée,
-			  	-Modification de l'indentation/Prendre la version indenté de marc pour analyser le javascript
+		et l'utilisation/Affichage des donnÃ©es dans javascript
+		RÃ©sultat : 	-ComprÃ©hension de la structure de la base donnÃ©e,
+			  	-Modification de l'indentation/Prendre la version indentÃ© de marc pour analyser le javascript
 				-Installation d'un "package" pour sublime text pour modifier l'indentation
 				-Recherche de l'erreur d'affichage pour permettre la validation des comptes
 				-Rien n'est commenter...
