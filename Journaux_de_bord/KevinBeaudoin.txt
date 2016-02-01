@@ -1,5 +1,6 @@
 01/02/2016
-12:50-16:05 :	Familiariser avec le code et les différent template : Foundation et Moustache. Trouver où dans le code l'activation est 			affecter et si les templates peuvent affecter l'affichage.
+12:50-16:05 :	Familiariser avec le code et les différent template : Foundation et Moustache. Trouver où dans le code l'activation est 
+		affecter et si les templates peuvent affecter l'affichage.
 		Résultat : 	Problème trouver, reste à le régler
 
 27/01/2016
