@@ -1,0 +1,18 @@
+﻿=== 27 janvier 2016 ===
+
+	8h15-10h:	Analyser en groupe le site déjà en place pour nous permettre de
+			mieux comprendre le fonctionnement du MVC en place pour facilité
+			la mise en place du site en local pour les tests.
+			  
+	10h-11h:	Essayer en groupe de mettre en place le site en local sur les
+			ordinateurs du Cégep, mais sans succès.
+			 
+			Indentation du code Javascript du site qui était compressé.
+			 
+	11h-11h50:	Regarder l'énoncé en groupe pour confirmer ou infirmer les bugs
+			présents sur le site.
+				
+			Sépararer en groupe les tâches de chacun (qui doit régler quels
+			bugs).
+
+=======================
