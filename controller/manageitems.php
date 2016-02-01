@@ -126,10 +126,13 @@ class ManageItems extends Controller
         $object = Objects::getObject($_objectId);
         $ownerObj = Users::getUser($object["ObjectOwner"]);
         $owner = $ownerObj["UserInfoFirstName"] . " " . $ownerObj["UserInfoLastName"];
-        $warranty = "Aucune garantie";
+        $warranty = null;
         if(($object["ObjectEndWarranty"]) != "0000-00-00"){
             $warranty = $object["ObjectEndWarranty"];
         }
+
+		
+		
         $famille = self::loadFamilyUsers($_userId,$_objectId);
         $Contains = Objects::getAllVisibleObjectsInContainer($_objectId, $_userId);
         $container = isset($Contains[0]);

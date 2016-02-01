@@ -3,11 +3,19 @@
 
 
 
-• Les photos n’apparaissent pas toujours au bon endroit. (Mike)
+• Les photos n’apparaissent pas toujours au bon endroit. (Mike) OK
  
-• Glisser-déposer une image ici ne fonctionne pas bien.  (Mike)
+• Glisser-déposer une image ici ne fonctionne pas bien.  (Marc)
+
+• Redirection Ajouter Modifier Image (Mike)
+
+• Multiplication Image  (Marc)
 
 • Standardiser la dimension des photos		         (Mike)
+
+
+
+
 
 
 
@@ -36,7 +44,7 @@
 
 
 
-• Dans modifier, corriger date de fin de garantie : enlever aucune garantie du champ. (Marc)
+• Dans modifier, corriger date de fin de garantie : enlever aucune garantie du champ. (Michael)
 
 
 • Corriger toutes autres erreurs trouvées. (Marc)
