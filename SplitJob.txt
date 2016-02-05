@@ -7,7 +7,7 @@
  
 • Glisser-déposer une image ici ne fonctionne pas bien.  (Marc)
 
-• Redirection Ajouter Modifier Image (Mike)
+• Redirection Ajouter Modifier Image (Mike)  OK
 
 • Multiplication Image  (Marc)
 
@@ -44,7 +44,7 @@
 
 
 
-• Dans modifier, corriger date de fin de garantie : enlever aucune garantie du champ. (Michael)
+• Dans modifier, corriger date de fin de garantie : enlever aucune garantie du champ. (Michael) OK
 
 
 • Corriger toutes autres erreurs trouvées. (Marc)
