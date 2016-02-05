@@ -470,13 +470,19 @@ class ManageItems extends Controller
      **/
     function getEncodedImagesById()
     {
-        $images = Resources::getImage($_POST["objectId"]);
-
+		
+        $images = Resources::getImage($_POST['objectId']);
+		
+		$tabImage = null;
+		
+		
         for($i = 0; $i < count($images); $i++)
         {
-            $images[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
-        }
-        echo json_encode($images);
+            $tabImage[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
+        }	
+		
+        echo json_encode($tabImage);
+		
     }
 
     /**
