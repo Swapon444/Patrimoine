@@ -1,3 +1,7 @@
+﻿08/02/2016
+12:50-14:00 :	Définition d'un admin. Modification dans le code pour permettre de reconnaitre un admin
+		Création d'un admin dans la BD
+
 01/02/2016
 12:50-16:05 :	Familiariser avec le code et les différent template : Foundation et Moustache. Trouver où dans le code l'activation est 
 		affecter et si les templates peuvent affecter l'affichage.
