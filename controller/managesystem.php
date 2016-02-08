@@ -26,7 +26,7 @@ class ManageSystem extends Controller
         $completeName = $user["UserName"];
 
         $data = array(
-            "familyowners" => Users::getAllUser(),
+            "familyowners" => Users::getAllFamilyOwners(),
             "username" => $completeName,
             "isSystemAdmin" => $_SESSION["role"] == ROLE_SYSADMIN,
             "isFamilyAdmin" => $_SESSION["role"] == ROLE_FAMOWNER,
