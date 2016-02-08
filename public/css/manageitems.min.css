@@ -1,1 +1,169 @@
-.valign{position:relative;top:50%;transform:translateY(-50%);-webkit-transform:translateY(-50%)}.alert-box{color:#555;border-radius:10px;font-family:Tahoma, Geneva, Arial, sans-serif;font-size:11px;position:relative;text-align:center}.alert-box span{font-weight:bold;text-transform:uppercase}.errorbox{background:#ffecec;border:1px solid #f5aca6}.successfull{background:#e9ffd9;border:1px solid #a6ca8a}@media only screen and (min-width: 40.063em) and (max-width: 64em){#siteCaption{display:none}}.icon-bar{background-color:#4a4a4a}.animated{-webkit-animation-duration:2s;animation-duration:2s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-timing-function:ease-in-out;animation-timing-function:ease-in-out;animation-iteration-count:infinite;-webkit-animation-iteration-count:infinite}@-webkit-keyframes pulse{0%{-webkit-transform:scale(1)}50%{-webkit-transform:scale(1.1)}100%{-webkit-transform:scale(1)}}@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}.pulse{-webkit-animation-name:pulse;animation-name:pulse}#dropZoneContainer{padding:20px;margin:10px;background:#1086b9;color:#fff;font-size:21px;font-weight:bold;line-height:1.3em;border:2px dashed #fff;border-radius:5px;box-shadow:0 0 0 4px #1086b9,2px 1px 6px 4px rgba(10,10,0,0.5);text-shadow:-1px -1px #0e628a;font-weight:normal}#dropZoneContainer h3{color:inherit;margin-top:30px}.view-zone{text-align:center;padding-top:10px}.preview-zone{text-align:center;padding-bottom:60px}.preview-zone th{padding-top:10px}.preview-zone li{height:150px;overflow:hidden}.small-tab{font-size:90%}#ObjectInfo{padding-left:5px}#ObjectInfo .row{background-color:#ececec;margin-top:4px;border-radius:12px}#searchbar{margin-right:0}#searchbar a{height:45px}#searchbar input{height:45px}#searchbar a.button:first-child{border-right:1px solid white}.noselect{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.valign
+{
+	position:relative;
+	top:50%;
+	transform:translateY(-50%);
+	-webkit-transform:translateY(-50%)
+}
+.alert-box
+{
+	color:#555;
+	border-radius:10px;
+	font-family:Tahoma, Geneva, Arial, sans-serif;
+	font-size:11px;
+	position:relative;
+	text-align:center
+}
+.alert-box span
+{
+	font-weight:bold;
+	text-transform:uppercase
+}
+.errorbox
+{
+	background:#ffecec;
+	border:1px solid #f5aca6
+}
+.successfull
+{
+	background:#e9ffd9;
+	border:1px solid #a6ca8a
+}
+	@media only screen and (min-width: 40.063em) and (max-width: 64em)
+{
+	#siteCaption
+{
+	display:none
+}
+
+}
+.icon-bar
+{
+	background-color:#4a4a4a
+}
+.animated
+{
+	-webkit-animation-duration:2s;
+	animation-duration:2s;
+	-webkit-animation-fill-mode:both;
+	animation-fill-mode:both;
+	-webkit-animation-timing-function:ease-in-out;
+	animation-timing-function:ease-in-out;
+	animation-iteration-count:infinite;
+	-webkit-animation-iteration-count:infinite
+}
+	@-webkit-keyframes pulse
+{
+	0%
+{
+	-webkit-transform:scale(1)
+}
+	50%
+{
+	-webkit-transform:scale(1.1)
+}
+	100%
+{
+	-webkit-transform:scale(1)
+}
+
+}
+	@keyframes pulse
+{
+	0%
+{
+	transform:scale(1)
+}
+	50%
+{
+	transform:scale(1.1)
+}
+	100%
+{
+	transform:scale(1)
+}
+
+}
+.pulse
+{
+	-webkit-animation-name:pulse;
+	animation-name:pulse
+}
+	#dropZoneContainer
+{
+	padding:20px;
+	margin:10px;
+	background:#1086b9;
+	color:#fff;
+	font-size:21px;
+	font-weight:bold;
+	line-height:1.3em;
+	border:2px dashed #fff;
+	border-radius:5px;
+	box-shadow:0 0 0 4px #1086b9,2px 1px 6px 4px rgba(10,10,0,0.5);
+	text-shadow:-1px -1px #0e628a;
+	font-weight:normal
+}
+	#dropZoneContainer h3
+{
+	color:inherit;
+	margin-top:30px
+}
+.view-zone
+{
+	text-align:center;
+	padding-top:10px
+}
+.preview-zone
+{
+	text-align:center;
+	padding-bottom:60px
+}
+.preview-zone th
+{
+	padding-top:10px
+}
+.preview-zone li
+{
+	height:150px;
+	overflow:hidden
+}
+.small-tab
+{
+	font-size:90%
+}
+	#ObjectInfo
+{
+	padding-left:5px
+}
+	#ObjectInfo .row
+{
+	background-color:#ececec;
+	margin-top:4px;
+	border-radius:12px
+}
+	#searchbar
+{
+	margin-right:0
+}
+	#searchbar a
+{
+	height:45px
+}
+	#searchbar input
+{
+	height:45px
+}
+	#searchbar a.button:first-child
+{
+	border-right:1px solid white
+}
+.noselect
+{
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none
+}

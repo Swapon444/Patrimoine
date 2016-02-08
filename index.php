@@ -1,7 +1,7 @@
 <?php
 
 
-/* Modification Test caca*/ 
+/* Modification Test caca*/
 
 
 ini_set('display_errors', 1);
@@ -24,7 +24,7 @@ error_reporting(E_ALL);
     include "repository/config.php";
 
     session_start();
-	
+
     $routes = array
     (
         "connexion" => "Connection",
@@ -53,14 +53,14 @@ error_reporting(E_ALL);
 
     //Obtient path
     $path = explode("/",$path);
-    
+
     //Détermine si path valide
     if(array_key_exists($path[1],$routes))
     {
         include "controller/" . strtolower($routes[$path[1]]) . ".php";
         // Instanciation du contrôleur routé
         $controller = new $routes[$path[1]];
-        
+
         if($path[2] == "show" and get_class($controller) == "ManageItems")
         {
             $controller->$path[2]($path[3]);
@@ -69,7 +69,7 @@ error_reporting(E_ALL);
         {
             // Si aucune méthode n'est spécifiée, on appelle la fonction render() du controlleur
             $method = count($path) == 4 ? $method = $path[2] : $method = "render";
-        
+
             if(method_exists($controller,$method))
             {
                 // Exécution de la méthode
@@ -112,10 +112,10 @@ error_reporting(E_ALL);
             {
                 if(isset($_SESSION["id"]))
                 {
-                    switch ($_SESSION["role"]) 
+                    switch ($_SESSION["role"])
                     {
                         case ROLE_SYSADMIN:
-                            header(SYSADMIN_HEADER); 
+                            header(SYSADMIN_HEADER);
                             break;
                         case ROLE_FAMOWNER:
                             header(MOD_HEADER);
