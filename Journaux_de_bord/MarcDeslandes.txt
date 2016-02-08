@@ -1,4 +1,18 @@
-﻿=== 2 février 2016 ===
+﻿=== 7 février 2016 ===
+
+	21h-23h:	Indenter le code dans le fichier "manageitems.min.css"	
+	
+			Corriger l'affichage du nom de fichier lorsque l'on met notre
+			souris dessus dans la fenêtre pour téléverser des images.
+			
+			Mettre à jour le texte dans la fenêtre pour téléverser une image.
+			
+			Rendre le texte de la zone pour glisser-déposer cliquable pour
+			ajouter une image avec la fenêtre de dialogue.
+								
+===============================================================================
+
+=== 2 février 2016 ===
 
 	12h50-15h30:	Mettre en place le site et la base de données en local
 			(sur wamp et phpMyAdmin) pour pouvoir effectuer des tests suite aux

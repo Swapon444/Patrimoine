@@ -84,7 +84,7 @@ class ManageItems extends Controller
                     "owned" => $owned
                 );
                 $this->renderTemplate(file_get_contents(ITEMS_PAGE), $data);
-            } 
+            }
             else
             {
                 header(OBJECTS_HEADER);
@@ -131,8 +131,8 @@ class ManageItems extends Controller
             $warranty = $object["ObjectEndWarranty"];
         }
 
-		
-		
+
+
         $famille = self::loadFamilyUsers($_userId,$_objectId);
         $Contains = Objects::getAllVisibleObjectsInContainer($_objectId, $_userId);
         $container = isset($Contains[0]);
@@ -332,9 +332,9 @@ class ManageItems extends Controller
             $children = Objects::getAllObjectsNameInContainer($_objectId,$_userId);
             $array = Array("name" => $object["ObjectName"],"children" => $children);
         }
-        else    
+        else
             $array = Array("name" => $object["ObjectName"],"children" => "aucun");
-            
+
         return $array;
     }
 
@@ -470,19 +470,19 @@ class ManageItems extends Controller
      **/
     function getEncodedImagesById()
     {
-		
+
         $images = Resources::getImage($_POST['objectId']);
-		
+
 		$tabImage = null;
-		
-		
+
+
         for($i = 0; $i < count($images); $i++)
         {
             $tabImage[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
-        }	
-		
+        }
+
         echo json_encode($tabImage);
-		
+
     }
 
     /**
