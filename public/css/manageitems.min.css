@@ -167,3 +167,7 @@
 	-ms-user-select:none;
 	user-select:none
 }
+.dz-filename
+{
+  margin-top: -16px;
+}
