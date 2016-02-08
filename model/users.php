@@ -27,6 +27,14 @@
                               WHERE UserId = UserInfoFamilyOwner");
         }
 
+        static function getAllUser()
+        {
+            return Db::query("SELECT *
+                              FROM Users INNER JOIN UserInfos ON UsersId = UserInfoId");
+        }
+
+
+
         //Retourne toutes les informations sur les membres de la famille du modérateur, dont on a reçu l'idrentificateur en paramètre
         static function getFamilyUsersByOwner($_ownerId)
         {
@@ -208,10 +216,10 @@
 
         //Retourne si l'utilisateur est un administrateur
         static function isUserAdmin($_userId){
-            $result = Db::queryFirst("SELECT UserInfo
-                                        FROM Users
+            $result = Db::queryFirst("SELECT UserInfoIsMod
+                                        FROM Users INNER JOIN UserInfos ON UserInfo = UserInfoId
                                         WHERE UserId = ?", $_userId);
-            return $result[0] == null;
+            return $result[0] == 2;
         }
 
         //Retourne un booléen représentant si l'utilisateur est le propriétaire d'une famille(True) ou non(false), selon son identificateur
@@ -229,7 +237,7 @@
                 return false;
             }
         }
-
+        /* BESOIN */
         //Retourne un booléen représentant si l'utilisateur est activé(true) ou non(false), selon l'identificateur reçu
         static function isUserActivated($_userId)
         {
@@ -257,7 +265,7 @@
             
             return ($recordCount > 0);
         }
-
+        /* BESOIN */
         //Active l'utilisateur dont l'identificateur a été reçu en paramètre
         static function activateUser($_userId)
         {
