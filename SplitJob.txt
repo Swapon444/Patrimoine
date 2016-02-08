@@ -1,53 +1,71 @@
 
 
-
+JOB FINI :
 
 
 • Les photos n’apparaissent pas toujours au bon endroit. (Mike) OK
  
-• Glisser-déposer une image ici ne fonctionne pas bien.  (Marc)
+• Glisser-déposer une image ici ne fonctionne pas bien.  (Marc) OK
 
 • Redirection Ajouter Modifier Image (Mike)  OK
 
-• Multiplication Image  (Marc)
+• Multiplication Image  (Marc) OK
 
-• Standardiser la dimension des photos		         (Mike)
+• Standardiser la dimension des photos	  (Mike) OK	       
 
-
-
-
+• Dans modifier, corriger date de fin de garantie : enlever aucune garantie du champ. (Mike) OK
 
 
 
-• Indenter le contenu des contenants dans l’arborescence. (Frank)
-
-• Utiliser une barre de défilement verticale et horizontal plutôt que le « Plus… » (Frank)
-
-• Corriger la fonction ajout de zone (les zones se multiplient) sur la photo d’un conteneur. (Marc)
-
-• Ajouter le nom du conteneur sur l’étiquette du code QC. (0)
-
-
-• Vérifier le contenu des rapports (Kevin)
-
-
-• Page de login : S’inscrire enregistre les infos mais ne les affichent pas dans Comptes pour validation. (Kevin)
-
-
-• La validation userinfostatus dans la table userinfo demeure donc à zéro. (Kevin)
 
 
 
-• Ajouter un conteneur principal manuellement suite à la validation d’un nouvel utilisateur et se re
-
-  connecter pour que ça fonctionne. (Frank)
+FRANK :
 
 
+	• Indenter le contenu des contenants dans l’arborescence. (Frank)
 
-• Dans modifier, corriger date de fin de garantie : enlever aucune garantie du champ. (Michael) OK
+	• Utiliser une barre de défilement verticale et horizontal plutôt que le « Plus… » (Frank)
+	
+	• Ajouter un conteneur principal manuellement suite à la validation d’un nouvel utilisateur et se re
+
+  	connecter pour que ça fonctionne. (Frank)
 
 
-• Corriger toutes autres erreurs trouvées. (Marc)
 
 
-• Création de compte modérateur (Vérification)
+MIKE :
+
+
+	• Ajouter le nom du conteneur sur l’étiquette du code QC. (Mike)
+
+
+
+MARC :
+
+
+	• Corriger la fonction ajout de zone (les zones se multiplient) sur la photo d’un conteneur. (Marc)
+	• Corriger toutes autres erreurs trouvées. (Marc)
+
+
+
+
+KEVIN :
+
+
+	• Vérifier le contenu des rapports (Kevin)
+
+	• Page de login : S’inscrire enregistre les infos mais ne les affichent pas dans Comptes pour validation. (Kevin)
+	
+	• La validation userinfostatus dans la table userinfo demeure donc à zéro. (Kevin)
+
+
+
+
+
+
+
+
+
+
+
