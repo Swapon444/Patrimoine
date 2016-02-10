@@ -18,6 +18,10 @@ JOB FINI :
 
 • La validation userinfostatus dans la table userinfo demeure donc à zéro. (Kevin) OK
 
+• Vérifier le contenu des rapports (Kevin)
+
+• Bug ImageID Section Patrimoine. (Mike)
+
 
 FRANK :
 	• Indenter le contenu des contenants dans l’arborescence. (Frank)
@@ -30,7 +34,8 @@ FRANK :
 
 
 MIKE :
-	• Ajouter le nom du conteneur sur l’étiquette du code QC. (Mike)
+
+	??????
 
 
 MARC :
@@ -39,5 +44,5 @@ MARC :
 
 
 KEVIN :
-	• Vérifier le contenu des rapports (Kevin)
 	• Permettre l'ajout d'un administrateur du site web (Kevin)
+	• Ajouter le nom du conteneur sur l’étiquette du code QR. (Mike)
