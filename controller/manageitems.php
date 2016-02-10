@@ -399,21 +399,27 @@ class ManageItems extends Controller
         // Chargement des images
         $images = Resources::getImage($id);
 
+		$tabImage = null;
+		
         // Encodage des images
-        for($i = 0; $i < count($images); $i++)
+        for($i = 0; $i < count($tabImage); $i++)
         {
-            $images[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
+            $tabImage[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
+			$tabImage[$i]["ImageId"] = $images[$i]["ImageId"];
+			
+			// P-E QQCH
         }
 
-        if(count($images) == 0)
+        if(count($tabImage) == 0)
         {
             $currentImage = PUBLIC_ABSOLUTE_PATH . "/assets/no-image.gif";
             $currentImageId = "";
         }
         else
         {
-            $currentImage = $images[0]["ImageBlob"];
-            $currentImageId = $images[0]["ImageId"];
+
+            $currentImage = $tabImage[0]["ImageBlob"];
+            $currentImageId = $tabImage[0]["ImageId"];
         }
 
         $contact = self::loadContactArray($_SESSION["id"]);
@@ -434,7 +440,7 @@ class ManageItems extends Controller
             "isMod" => $_SESSION["role"] == ROLE_MOD,
             "currentImage" => $currentImage,
             "currentImageId" => $currentImageId,
-            "images" => $images,
+            "images" => $tabImage,
             "owned" => $owned
         );
         $this->renderTemplate(file_get_contents(ITEMS_PAGE), $data);
