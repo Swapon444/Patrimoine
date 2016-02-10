@@ -1,5 +1,8 @@
-﻿08/02/2016
-12:50-14:00 :	Définition d'un admin. Modification dans le code pour permettre de reconnaitre un admin
+﻿10/02/2016
+8:15-9:10 :	Analyse des rapports. Tout est correcte, seulement le terme simplifié représente mal le rapport démontré, changement vers "Restreint"
+
+08/02/2016
+14:00-16:00 :	Définition d'un admin. Modification dans le code pour permettre de reconnaitre un admin
 		Création d'un admin dans la BD
 
 12:50-14:00 :	Réparation de bug mineur créer par moi-même, correction de l'affichage sur la page d'administration,
