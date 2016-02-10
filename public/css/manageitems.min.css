@@ -178,6 +178,11 @@
 	#uploadImageModal
 	{
 		min-height: 0px;
-		margin-top: -80%;
+		top: 20% !important
+	}
+	#zoneModal
+	{
+		min-height: 0px;
+		top: 20% !important
 	}
 }
