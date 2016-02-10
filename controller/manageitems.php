@@ -399,27 +399,21 @@ class ManageItems extends Controller
         // Chargement des images
         $images = Resources::getImage($id);
 
-		$tabImage = null;
-		
         // Encodage des images
-        for($i = 0; $i < count($tabImage); $i++)
+        for($i = 0; $i < count($images); $i++)
         {
-            $tabImage[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
-			$tabImage[$i]["ImageId"] = $images[$i]["ImageId"];
-			
-			// P-E QQCH
+            $images[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
         }
 
-        if(count($tabImage) == 0)
+        if(count($images) == 0)
         {
             $currentImage = PUBLIC_ABSOLUTE_PATH . "/assets/no-image.gif";
             $currentImageId = "";
         }
         else
         {
-
-            $currentImage = $tabImage[0]["ImageBlob"];
-            $currentImageId = $tabImage[0]["ImageId"];
+            $currentImage = $images[0]["ImageBlob"];
+            $currentImageId = $images[0]["ImageId"];
         }
 
         $contact = self::loadContactArray($_SESSION["id"]);
@@ -440,11 +434,11 @@ class ManageItems extends Controller
             "isMod" => $_SESSION["role"] == ROLE_MOD,
             "currentImage" => $currentImage,
             "currentImageId" => $currentImageId,
-            "images" => $tabImage,
+            "images" => $images,
             "owned" => $owned
         );
-        $this->renderTemplate(file_get_contents(ITEMS_PAGE), $data);
-    }
+		$this->renderTemplate(file_get_contents(ITEMS_PAGE), $data);
+	}
 
     /**
      * Télécharger et stocker sous forme de blob l'image reçue
@@ -485,6 +479,7 @@ class ManageItems extends Controller
         for($i = 0; $i < count($images); $i++)
         {
             $tabImage[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
+			$tabImage[$i]["ImageId"] = $images[$i]["ImageId"];
         }
 
         echo json_encode($tabImage);
