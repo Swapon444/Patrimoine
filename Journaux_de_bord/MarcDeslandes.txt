@@ -1,4 +1,15 @@
-﻿=== 7 février 2016 ===
+﻿=== 8 février 2016 ===
+
+	12h50-16h25:	Indenter le code dans le fichier "connection.min.css"	
+	
+			Correction de l'affichage de la page de connexion sur mobile.
+			
+			Correction de l'affichage de la fenêtre pour téléverser des images
+			sur mobile.
+								
+===============================================================================
+
+=== 7 février 2016 ===
 
 	21h-23h:	Indenter le code dans le fichier "manageitems.min.css"	
 	

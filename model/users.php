@@ -30,7 +30,7 @@
         static function getAllUser()
         {
             return Db::query("SELECT *
-                              FROM Users INNER JOIN UserInfos ON UsersId = UserInfoId");
+                              FROM Users INNER JOIN UserInfos ON UserInfo = UserInfoId");
         }
 
 
@@ -200,9 +200,11 @@
         //REtourne un booléen représentant si l'utilisateur est modérateur(true) ou non(falsE), par son identificateur.
         static function isUserMod($_userId)
         {
+
             $result = Db::queryFirst("SELECT UserInfoIsMod
                                       FROM Users INNER JOIN UserInfos ON UserInfo = UserInfoId
                                       WHERE UserId = ?",$_userId);
+            
             if(isset($result["UserInfoIsMod"]))
             {
                 return $result["UserInfoIsMod"] == 1;
@@ -216,6 +218,7 @@
 
         //Retourne si l'utilisateur est un administrateur
         static function isUserAdmin($_userId){
+
             $result = Db::queryFirst("SELECT UserInfoIsMod
                                         FROM Users INNER JOIN UserInfos ON UserInfo = UserInfoId
                                         WHERE UserId = ?", $_userId);
