@@ -33,7 +33,7 @@ section
 {
   position:relative
 }
-@media only screen and (min-width: 642px) and (min-heigth: 325px)
+@media only screen and (min-width: 642px) and (min-height: 325px)
 {
   .valign
   {
