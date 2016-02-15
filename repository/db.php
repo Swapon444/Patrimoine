@@ -86,19 +86,15 @@
         //Établi une connexion avec la base de données
         private static function connect()
         {
-			
-
-            try 
+			      try
             {
                 self::$db = new PDO("mysql:host=" . HOST . ";charset=utf8;dbname=" . DBNAME , USERNAME, PASSWORD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
-            } 
-            catch (PDOException $e) 
+            }
+            catch (PDOException $e)
             {
                 print "Erreur !: " . $e->getMessage() . "<br/>";
                 die();
             }
-			
-		
-        }
+			  }
     }
 ?>

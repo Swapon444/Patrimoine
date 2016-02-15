@@ -42,7 +42,7 @@
                               FROM Users INNER JOIN UserInfos ON UserInfo = UserInfoId
                               WHERE UserInfoFamilyOwner = ?",$_ownerId);
         }
-		
+
 		//Retourne l'id du familyOwner selon le userid passé
         static function getFamilyOwnerByUserId($_userId)
         {
@@ -50,7 +50,7 @@
                               FROM Users INNER JOIN UserInfos ON UserInfo = UserInfoId
                               WHERE UserId = ?",$_userId);
         }
-		
+
 		//Retourne l'utilisateur correspondant au code reçu
 		static function getUserIdByCode($_code)
 		{
@@ -66,7 +66,7 @@
                 return intval($id[0]);
             }
 		}
-		
+
 		//Retourne le temps exact que le code a été créé
 		static function getCodeDate($_code)
 		{
@@ -82,32 +82,32 @@
                 return $date[0];
             }
 		}
-        
-        //retourne le token correspondant au id de l'utilisateur 
+
+        //retourne le token correspondant au id de l'utilisateur
         static function getTokenByUserId($_user)
         {
             $result = Db::queryFirst("SELECT CookieTokensCode
-                                   FROM CookieTokens 
+                                   FROM CookieTokens
                                    WHERE CookieTokensUserId = ?",$_user);
             return $result[0];
         }
-        
+
         //retourne la date de fin du token voulu
         static function getTokenEndDate($_token)
         {
             $result = Db::queryFirst("SELECT CookieTokensEndDate
-                                   FROM CookieTokens 
+                                   FROM CookieTokens
                                    WHERE CookieTokensCode = ?",$_token);
             return $result[0];
         }
-        
+
         //retourne l'id de l'utilisateur qui posède ce CookieTokens
         static function getUserIdByToken($_token)
         {
             $user =  Db::queryFirst("SELECT CookieTokensUserId
-                                   FROM CookieTokens 
+                                   FROM CookieTokens
                                    WHERE CookieTokensCode = ?",$_token);
-                                   
+
             if (empty($user[0]))
             {
                 return -1;
@@ -142,7 +142,7 @@
                                 UserSalt = ?
                                 WHERE UserId = ?", array($_hash, $_salt, $_userId));
         }
-        
+
         //Mettre à jour le username de l'utilisateur.
         static function updateUserName($_userId, $_userName)
         {
@@ -150,7 +150,7 @@
                                 SET UserName = ?
                                 WHERE UserId = ?", array($_userName, $_userId));
         }
-        
+
         //Mettre à jour le prénom de l'utilisateur.
         static function updateFirstName($_userId, $_firstName)
         {
@@ -161,7 +161,7 @@
                                 SET UserInfoFirstName = ?
                                 WHERE UserInfoId = ?", array($_firstName, $idInfo["UserInfo"]));
         }
-        
+
         //Mettre à jour le nom de l'utilisateur.
         static function updateLastName($_userId, $_lastName)
         {
@@ -172,7 +172,7 @@
                                 SET UserInfoLastName = ?
                                 WHERE UserInfoId = ?", array($_lastName, $idInfo["UserInfo"]));
         }
-        
+
         //Mettre à jour le téléphone de l'utilisateur.
         static function updateTel($_userId, $_phone)
         {
@@ -204,7 +204,7 @@
             $result = Db::queryFirst("SELECT UserInfoIsMod
                                       FROM Users INNER JOIN UserInfos ON UserInfo = UserInfoId
                                       WHERE UserId = ?",$_userId);
-            
+
             if(isset($result["UserInfoIsMod"]))
             {
                 return $result["UserInfoIsMod"] == 1;
@@ -256,18 +256,19 @@
                 return false;
             }
         }
-        
+
         //Permet de savoir si l'utilisateur existe avec l'email.
         static function isUserExistByMail($_userMail)
         {
             $count = Db::queryFirst("SELECT COUNT(UserId)
             FROM Users
             WHERE UserName = ?", $_userMail);
-            
+
             $recordCount = $count[0];
-            
+
             return ($recordCount > 0);
         }
+
         /* BESOIN */
         //Active l'utilisateur dont l'identificateur a été reçu en paramètre
         static function activateUser($_userId)
@@ -338,21 +339,21 @@
             Db::execute("DELETE FROM UserInfos
                                 WHERE UserInfoId = ?", $infoId[0]);
         }
-        
+
         //Effacer les tokens de l'utilisateur
         static function deleteCookieToken($_userId)
         {
             Db::execute("DELETE FROM CookieTokens
                          WHERE CookieTokensUserId = ?", $_userId);
         }
-        
+
 		//Supprime un code selon l'id du user
 		static function deleteCode($_userId)
 		{
             Db::execute("DELETE FROM PasswordReset
 			                  WHERE PasswordResetUserId =?", $_userId);
 		}
-		
+
         //Ajouter un utilisateur régulier à la base de données
         static function addUser($_email,$_phone,$_firstName,$_lastName,$_familyOwner,$_hash,$_salt)
         {
@@ -365,14 +366,14 @@
                                     SET UserInfo = ?
                                     WHERE UserId = ?",array($infoId, $userId));
         }
-        
+
         //Ajouter un token pour un cookie d'un utilisateur
 		static function setCookieToken($_userId, $_cookieToken)
         {
             Db::createLastId("INSERT INTO CookieTokens(CookieTokensUserId,CookieTokensCode,CookieTokensEndDate)
 			                  VALUES (?,?,?) ", array($_userId, $_cookieToken, time() + 86400*7));
         }
-        
+
 		//Ajouter un code afin de réinitialiser le mot de passe
 		static function addCode($_userId, $_code)
 		{
@@ -391,7 +392,7 @@
             Db::execute("UPDATE Users
                                     SET UserInfo = ?
                                     WHERE UserId = ?",array($infoId, $userId));
-			
+
 			return $userId;
         }
 

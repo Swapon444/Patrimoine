@@ -1,6 +1,8 @@
 <?php
 
 use \model\Users as Users;
+use \model\Objects as Objects;
+
 
 /**
  * Classe manageSystem
@@ -32,7 +34,7 @@ class ManageSystem extends Controller
             "isFamilyAdmin" => $_SESSION["role"] == ROLE_FAMOWNER,
             "isMod" => $_SESSION["role"] == ROLE_MOD
         );
-        
+
         /*
          * - Formate les numéros de téléphone pour l'affichage. Assume que les données de la bd sont toujours stockées
          * de la même façon, soit avec 11 caractères collés sans autre symbole.
@@ -112,8 +114,20 @@ class ManageSystem extends Controller
                 $salt = Registration::generateSalt();
                 $crypt = crypt($_POST["UserPass"], $salt);
                 $phone = Registration::normalizePhoneNumber($_POST["UserInfoTel"]);
-                
-                Users::addFamilyOwner($_POST["UserName"], $phone, $_POST["UserInfoFirstName"], $_POST["UserInfoLastName"], $crypt, $salt);
+
+                $owner = Users::addFamilyOwner($_POST["UserName"], $phone, $_POST["UserInfoFirstName"], $_POST["UserInfoLastName"], $crypt, $salt);
+
+                $name = "Contenant principal";
+                $parent = null;
+                $value = 0;
+                $initValue = 0;
+                $warranty = "";
+                $infos = "";
+                $summary = "Contenant de départ";
+                $public = 1;
+                $quantity = 1;
+
+                Objects::addObject($name, $owner, $parent, $value, $initValue, $warranty, $infos, $summary, $public, $quantity);
             }
         }
     }
@@ -161,7 +175,7 @@ class ManageSystem extends Controller
     {
         echo json_encode(Users::getAllFamilyOwners());
     }
-    
+
     //Retourner un administrateur de famille selon le Id.
     function getFamilyOwner()
     {
