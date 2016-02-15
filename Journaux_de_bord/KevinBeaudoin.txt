@@ -1,5 +1,15 @@
-﻿10/02/2016
+﻿15/02/2016
+
+15:20-16:35 :	Documentation sur les problème régler
+
+15:00-15:20 : 	Discussion avec reste de l'équipe sur les tâches à effectuer
+
+12:50-15:00 : 	Test des fonctionnalités sur le serveur (Mobile et PC). Problème de refresh du site web avec la nouvelle version, mais toute les fonctionnalités sont là, ceux qui bug devront être tester plus tard
+
+10/02/2016
+
 9:15-11:10 : 	Analyse code QR et ajout du titre de du QR afficher. Journal de bord.
+
 8:15-9:10 :	Analyse des rapports. Tout est correcte, seulement le terme simplifié représente mal le rapport démontré, changement vers "Restreint"
 
 08/02/2016
@@ -10,6 +20,7 @@
 		Détection d'un nouveau problème : création d'admin système impossible.
 
 01/02/2016
+
 12:50-16:05 :	Familiariser avec le code et les différent template : Foundation et Moustache. Trouver où dans le code l'activation est 
 		affecter et si les templates peuvent affecter l'affichage.
 		Résultat : 	Problème trouver, reste à le régler
