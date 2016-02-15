@@ -22,27 +22,41 @@ JOB FINI :
 
 • Bug ImageID Section Patrimoine. (Mike)
 
+• Bug : No image (quand on cancel l’ajout d’image) (Mike)
+
+• Ajouter le nom du conteneur sur l’étiquette du code QR. (Kevin)
+
+• Corriger la fonction ajout de zone (les zones se multiplient) sur la photo d’un conteneur. (Marc)
+
+• Ajouter un conteneur principal manuellement suite à la validation d’un nouvel utilisateur et se re
+
+  connecter pour que ça fonctionne. (Marc)
+
+
+
 
 FRANK :
+
+
 	• Indenter le contenu des contenants dans l’arborescence. (Frank)
 
 	• Utiliser une barre de défilement verticale et horizontal plutôt que le « Plus… » (Frank)
-	
-	• Ajouter un conteneur principal manuellement suite à la validation d’un nouvel utilisateur et se re
 
-  	connecter pour que ça fonctionne. (Frank)
+	• Documentation
+
+	
+
 
 
 MIKE :
 
-	??????
+	• Documentation
 
 
 MARC :
-	• Corriger la fonction ajout de zone (les zones se multiplient) sur la photo d’un conteneur. (Marc)
-	• Corriger toutes autres erreurs trouvées. (Marc)
+	
+	• Documentation
 
 
 KEVIN :
-	• Permettre l'ajout d'un administrateur du site web (Kevin)
-	• Ajouter le nom du conteneur sur l’étiquette du code QR. (Mike)
+	• Documentation
