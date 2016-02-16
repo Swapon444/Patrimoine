@@ -1,4 +1,13 @@
-﻿=== 10 février 2016 ===
+﻿=== 15 février 2016 ===
+
+	12h50-16h25:	Retirer la fonctionnalité des zones réactives
+	
+			Ajout d'un contenant principal lorsqu'un nouvel administrateur de
+			patrimoine est créé.
+											
+===============================================================================
+
+=== 10 février 2016 ===
 
 	8h15-11h50:	Correction de l'affichage de la fenêtre pour les zones
 			réactives sur mobile.
