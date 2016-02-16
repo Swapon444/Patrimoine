@@ -179,8 +179,10 @@ class ManageItems extends Controller
         $object = Objects::getObject($_objectId);
         $array = Array();
         $parent = $object["ObjectContainer"];
+		$grandparent = Objects::getObject($parent);
+		$grandparent = $grandparent["ObjectContainer"];
         $nomParent ="";
-        if($parent!=null){
+        if($parent!=null && !empty($grandparent)){
             $parentObject = Objects::getObject($parent);
             $nomParent .=  $parentObject["ObjectName"];
             $parentId = $parentObject["ObjectId"];
