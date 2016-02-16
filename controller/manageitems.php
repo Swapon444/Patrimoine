@@ -149,6 +149,26 @@ class ManageItems extends Controller
                         "container" => $container,"contentvalue" => $contentvalue);
         return $array;
     }
+	
+	/*
+	 *Fonction retournant tous les contenants racine du chef de famille
+	 *Correction 2016
+	*/
+	function getAllRacineContainer()
+	{
+		$OwnerId = self::getFamilyOwner($_SESSION["id"]);
+		$arrayContainersRacine = array();
+		if(!is_null(objects::getRacinesContainers($_SESSION["id"])))
+		{
+			array_push($arrayContainersRacine , objects::getRacinesContainers($_SESSION["id"]));	
+		}
+		
+		if(!is_null(objects::getRacinesContainers($OwnerId)))
+		{
+			array_push($arrayContainersRacine ,objects::getRacinesContainers($OwnerId));	
+		}
+		return $arrayContainersRacine;
+	}
 
     /*
      * Fonction retournant un tableau contenant le parent et les enfants de l'objet reçu en paramètre,
@@ -374,13 +394,13 @@ class ManageItems extends Controller
 
         foreach($objets as $objet)
         {
-            if (empty($objet["ObjectContainer"]))
+            if (!empty($objet["ObjectContainer"]))
             {
                 $id = $objet["ObjectId"];
             }
         }
 
-        $array = self::loadObjectArray($id,$_SESSION["id"],8);
+        $array = self::loadObjectArray($id,$_SESSION["id"],50);
         $infos = self::loadObjectInfo($id,$_SESSION["id"]);
         $famille = self::loadFamilyUsers($_SESSION["id"],$id);
         $first = is_null($array[0]["name"]);
@@ -539,9 +559,11 @@ class ManageItems extends Controller
     function addItem()
     {
         $parent = $_POST["parent"];
-        if($parent == '')
+        if($parent == '' || $parent == null)
         {
-            $parent = null;
+            $ownerId = users::getFamilyOwnerByUserId($_SESSION['id']);
+			$parent = objects::getRacinesContainersId((int)($ownerId[0]["UserInfoFamilyOwner"]));
+			$parent = (int)$parent[0]["ObjectId"];
         }
         $name = $_POST["name"];
         $initValue = $_POST["initValue"];

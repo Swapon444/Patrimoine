@@ -335,6 +335,12 @@
             return Db::execute("DELETE FROM RightExceptions
                                 WHERE RightExceptionObject = ? AND RightExceptionUser = ?",Array($_objectId,$_userId));
         }
+		
+		//Obtient le id du conteneur principale
+		static function getRacinesContainersId($_userid)
+		{
+			return Db::query("SELECT ObjectId FROM Objects WHERE ObjectContainer is NULL AND ObjectOwner =?",$_userid);
+		}
     }
 
 ?>

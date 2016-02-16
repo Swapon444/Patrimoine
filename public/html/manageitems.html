@@ -259,6 +259,7 @@
 
                         <ul id="image-options" class="button-group round">
                             <li><a id="btnUploadImage" href="#" class="button small"><i class="fa fa-lg fa-plus-circle"></i></a></li>
+                            <li><a id="btnEditZones" href="#" class="button small"><i class="fa fa-lg fa-crosshairs"></i></a></li>
                             <li><a id="btnDeleteImage" href="#" class="button small"><i class="fa fa-lg fa-trash"></i></a></li>
                         </ul>
                     </div>
@@ -351,6 +352,13 @@
                                 <input id="chkAddPublic" type="checkbox" checked>
                                 <label for="chkAddPublic"></label>
                             </div>
+							<br>
+							<label>Contenant racine:</label>
+                            <div class="switch">
+                                <input id="chkAddRacine" type="checkbox" >
+                                <label for="chkAddRacine"></label>
+                            </div>
+						 
                         </div>
                         <div class="small-12 medium-6 columns">
                             <label>Exceptions:</label>
@@ -534,7 +542,7 @@
 
         <div id="reportModal" class="reveal-modal" data-reveal>
             <h2>Rapports</h2>
-            <a href="#" id="btnReportSimple" class="button">Émettre un rapport restreint</a>
+            <a href="#" id="btnReportSimple" class="button">Émettre un rapport simplifié</a>
             {{#isMod}}
             <a href="#" id="btnReportFull" class="button">Émettre un rapport complet</a>
             {{/isMod}}
