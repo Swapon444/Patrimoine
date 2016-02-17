@@ -704,6 +704,87 @@ class ManageItems extends Controller
 
         $this->renderTemplate(file_get_contents("public/html/report.html"), $data);
     }
+
+    /**
+     * Génère un rapport qui liste tous les objets à partir d'un objet racine spécifié, ainsi que leurs enfants et enfants d'enfant etc.
+     */
+    function generateReportAll()
+    {
+        $objectId = $_POST["object"];
+        $objects = Objects::getAllVisibleObjectsInContainer($objectId,$_SESSION["id"]);
+        $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
+
+        for($i = 0; $i < count($objects); $i++)
+        {
+            $objects[$i]["ObjectIsLent"] = $objects[$i]["ObjectIsLent"] == 0 ? "Non" : "Oui";
+
+            if($objects[$i]["ObjectEndWarranty"] == "0000-00-00")
+            {
+                $objects[$i]["ObjectEndWarranty"] = "-";
+            }
+
+            $sum += ($objects[$i]["ObjectInitialValue"] * $objects[$i]["ObjectQuantity"]) * Objects::getObjectQuantity($objectId);
+            $sum += Objects::getVisibleObjectContentValue($objects[$i]["ObjectId"],$_SESSION["id"]) * Objects::getObjectQuantity($objectId);
+            $objects[$i]["ObjectContentValue"] = Objects::getVisibleObjectContentValue($objects[$i]["ObjectId"],$_SESSION["id"]);
+            $objects[$i]["ObjectTotalValue"] = ($objects[$i]["ObjectInitialValue"]+$objects[$i]["ObjectContentValue"]) * $objects[$i]["ObjectQuantity"];
+        }
+
+        $container = Objects::getObject($objectId);
+
+        $user = Users::getUser($_SESSION["id"]);
+
+        $data = array(
+            "containerValue" => Objects::getObjectValue($objectId),
+            "name" => $user["UserInfoFirstName"] . " " . $user["UserInfoLastName"],
+            "date" => date("Y-m-j"),
+            "objects" => $objects,
+            "total" => (Objects::getVisibleObjectContentValue($objectId,$_SESSION["id"]) + Objects::getObjectValue($objectId)) * Objects::getObjectQuantity($objectId),
+            "container" => $container["ObjectName"],
+            "containerId" => $container["ObjectId"],
+            "containerQuantity" => $container["ObjectQuantity"]
+        );
+
+        $this->renderTemplate(file_get_contents("public/html/report.html"), $data);
+    }
+
+    function getOneContent($_ObjetId){
+        $objects = Objects::getAllVisibleObjectsInContainer($objectId,$_SESSION["id"]);
+        $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
+
+        for($i = 0; $i < count($objects); $i++)
+        {
+            $objects[$i]["ObjectIsLent"] = $objects[$i]["ObjectIsLent"] == 0 ? "Non" : "Oui";
+
+            if($objects[$i]["ObjectEndWarranty"] == "0000-00-00")
+            {
+                $objects[$i]["ObjectEndWarranty"] = "-";
+            }
+
+            $sum += ($objects[$i]["ObjectInitialValue"] * $objects[$i]["ObjectQuantity"]) * Objects::getObjectQuantity($objectId);
+            $sum += Objects::getVisibleObjectContentValue($objects[$i]["ObjectId"],$_SESSION["id"]) * Objects::getObjectQuantity($objectId);
+            $objects[$i]["ObjectContentValue"] = Objects::getVisibleObjectContentValue($objects[$i]["ObjectId"],$_SESSION["id"]);
+            $objects[$i]["ObjectTotalValue"] = ($objects[$i]["ObjectInitialValue"]+$objects[$i]["ObjectContentValue"]) * $objects[$i]["ObjectQuantity"];
+        }
+
+        $container = Objects::getObject($objectId);
+
+        $user = Users::getUser($_SESSION["id"]);
+
+        $data = array(
+            "containerValue" => Objects::getObjectValue($objectId),
+            "name" => $user["UserInfoFirstName"] . " " . $user["UserInfoLastName"],
+            "date" => date("Y-m-j"),
+            "objects" => $objects,
+            "total" => (Objects::getVisibleObjectContentValue($objectId,$_SESSION["id"]) + Objects::getObjectValue($objectId)) * Objects::getObjectQuantity($objectId),
+            "container" => $container["ObjectName"],
+            "containerId" => $container["ObjectId"],
+            "containerQuantity" => $container["ObjectQuantity"]
+        );
+
+        return $data;
+    }
+
+
     /*
      * Génère un rapport complet à partir d'un objet racine spécifié
      */
