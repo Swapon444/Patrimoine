@@ -724,8 +724,9 @@ class ManageItems extends Controller
             {
                 $levelstack[$level]--;
                 $object = array_pop($objects);
-                $object["ObjectContentValue"] = Objects::getVisibleObjectContentValue($object["ObjectId"],$_SESSION["id"]);
-                $object["ObjectTotalValue"] = ($object["ObjectInitialValue"]+$object["ObjectContentValue"]) * $object["ObjectQuantity"];
+                /*$object["ObjectContentValue"] = Objects::getVisibleObjectContentValue($object["ObjectId"],$_SESSION["id"]);
+                $object["ObjectTotalValue"] = ($object["ObjectInitialValue"]+$object["ObjectContentValue"]) * $object["ObjectQuantity"];*/
+                $object["ObjectTotalValue"] = $object["ObjectInitialValue"] * $object["ObjectQuantity"];
                 if(isset($object["quantity"]))
                 {
                     $object["quantity"] = $object["ObjectQuantity"] * $object["quantity"];
