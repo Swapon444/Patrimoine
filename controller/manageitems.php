@@ -501,7 +501,6 @@ class ManageItems extends Controller
 
 		$tabImage = null;
 
-
         for($i = 0; $i < count($images); $i++)
         {
             $tabImage[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
