@@ -10,6 +10,7 @@ class Resources
         return Db::execute("INSERT INTO Images
         (ImageObject, ImageBlob)
         VALUES (?, ?)", array($_objectId, $_image));
+		
     }
 
     //Supprimer une image

@@ -480,6 +480,10 @@ class ManageItems extends Controller
                 fclose($fp);
 
                 Resources::addImage($_POST["objectId"], $content);
+				
+				
+				sleep(5);
+				
             }
         }
     }
