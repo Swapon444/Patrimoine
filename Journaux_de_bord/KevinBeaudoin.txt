@@ -1,4 +1,11 @@
-﻿15/02/2016
+﻿17/02/2016
+
+10:20-11:50 :	Analyse des rapports, conception d'un rapport réellement complet.
+
+8:15-10:20  :	Découverte de deux nouveaux problème : Délais dans les requêtes et répetition des requête ajax, solution de ceux-ci. Test sur mobile
+
+
+15/02/2016
 
 15:20-16:35 :	Documentation sur les problème régler
 
