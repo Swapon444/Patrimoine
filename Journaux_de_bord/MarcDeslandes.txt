@@ -1,4 +1,14 @@
-﻿=== 15 février 2016 ===
+﻿=== 22 février 2016 ===
+
+	12h50-16h25:	Ajout d'un contenant principal lorsqu'un nouvel
+			administrateur de patrimoine s'inscrit.
+	
+			Refaire l'affichage des objets dans le patrimoine pour une
+			meilleure indentation (pas fini).
+											
+===============================================================================
+
+=== 15 février 2016 ===
 
 	12h50-16h25:	Retirer la fonctionnalité des zones réactives
 	
