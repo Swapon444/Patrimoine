@@ -1,4 +1,10 @@
-﻿17/02/2016
+﻿22/02/2016
+
+13:40-16:30 :	Création du rapport très très complet. Compréhension avancé de mustache et son utilisation. Incomplet (impossible de tester
+
+12:50-13:40 :	Test de la nouvelle version du site web. Encore des bug...
+
+17/02/2016
 
 10:20-11:50 :	Analyse des rapports, conception d'un rapport réellement complet.
 
