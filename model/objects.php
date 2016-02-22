@@ -341,6 +341,21 @@
 		{
 			return Db::query("SELECT ObjectId FROM Objects WHERE ObjectContainer is NULL AND ObjectOwner =?",$_userid);
 		}
+		
+		//Obtient les conteneur principals
+		static function getConteneursPrincipals($_userid)
+		{
+			return Db::query("SELECT * FROM Objects WHERE ObjectContainer =?", $id);
+		}
+		
+		
+		//Obtient le premier conteneur racine
+		static function getFirstRacine($_userOwnerID)
+		{
+			$containerID = self::getRacinesContainersId($_userOwnerID);
+			$containerID = $containerID[0][0];
+			return Db::query("SELECT * FROM Objects WHERE ObjectContainer=? LIMIT 1", $containerID);
+		}
     }
 
 ?>

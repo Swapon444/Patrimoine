@@ -180,18 +180,15 @@ class ManageItems extends Controller
         $array = Array();
         $parent = $object["ObjectContainer"];
 		$grandparent = Objects::getObject($parent);
+		$racineContainer = $grandparent["ObjectId"];
 		$grandparent = $grandparent["ObjectContainer"];
         $nomParent ="";
-        if($parent!=null && !empty($grandparent)){
-            $parentObject = Objects::getObject($parent);
-            $nomParent .=  $parentObject["ObjectName"];
-            $parentId = $parentObject["ObjectId"];
-            array_push($array,Array("name" => $nomParent , "id" => $parentId, "head" => true,"link" => true));
-        }
-        array_push($array,Array("name" => $object["ObjectName"] , "id" => $object["ObjectId"],"head" => true, "link" => false));
-        $enfants = Objects::getAllVisibleObjectsInContainer($_objectId,$_userId);
+ 
+        //array_push($array,Array("name" => $object["ObjectName"] , "id" => $object["ObjectId"],"head" => true, "link" => false));
+        $enfants = Objects::getAllVisibleObjectsInContainer($racineContainer,$_userId);
         $i = 0;
         $more = false;
+		
         foreach($enfants as $enfant){
             if($i < $_nbShow)
             {
@@ -199,17 +196,19 @@ class ManageItems extends Controller
                 $idEnfant = $enfant["ObjectId"];
                 $Contains = Objects::getAllVisibleObjectsInContainer($idEnfant, $_userId);
                 $container = isset($Contains[0]);
-                array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "other" => true, "container" => $container));
+				if(empty($Contains))
+					$Contains = null;
+                array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "other" => true, "container" => $Contains, "link" => false));
                 $i++;
             }
-            else
+            /*else
             {
                 if(!$more)
                 {
                     $more = true;
                     array_push($array, Array("name" => "Plus...", "id" => "-1", "other" => true, "container" => true, "plus" => true, "nb" => $_nbShow, "target" => $_objectId));
                 }
-            }
+            }*/
         }
         return ($array);
     }
@@ -390,17 +389,12 @@ class ManageItems extends Controller
     function render()
     {
         //Obtenir l'objet de base du user en cours
-        $familyOwner = self::getFamilyOwner($_SESSION["id"]);
-        $objets = Objects::getObjectsByFamily($familyOwner);
-        $id = -1;
-
-        foreach($objets as $objet)
-        {
-            if (!empty($objet["ObjectContainer"]))
-            {
-                $id = $objet["ObjectId"];
-            }
-        }
+        $familyOwner = (int)self::getFamilyOwner($_SESSION["id"]);
+        $objet = Objects::getFirstRacine($familyOwner);
+		if(!is_null($objet))
+		{
+			$id = (int)$objet[0][0];
+		}
 
         $array = self::loadObjectArray($id,$_SESSION["id"],50);
         $infos = self::loadObjectInfo($id,$_SESSION["id"]);
@@ -439,7 +433,6 @@ class ManageItems extends Controller
         }
 
         $contact = self::loadContactArray($_SESSION["id"]);
-
         $data = array
         (
             "PUBLIC_ABSOLUTE_PATH" => PUBLIC_ABSOLUTE_PATH,
