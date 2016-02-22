@@ -125,29 +125,30 @@
                             {{#head}}
                                 <tr>
                                     <th>
-                                        {{#link}}
-                                        <a href="#" onclick="newSelectedObject({{id}},{{user}})">{{name}}</a>
-                                        {{/link}}
-                                        {{^link}}
-                                            <div id="selectedId" class="hide">{{id}}</div>
-                                            {{name}}
-                                        {{/link}}
+                                      {{name}}
+                                        <!-- {{#link}} -->
+                                        <!-- <a href="#" onclick="newSelectedObject({{id}},{{user}})">{{name}}</a> -->
+                                        <!-- {{/link}} -->
+                                        <!-- {{^link}} -->
+                                            <div id="selectedId" hidden="true">{{id}}</div>
+                                            <!-- {{name}} -->
+                                        <!-- {{/link}} -->
                                     </th>
                                 </tr>
                             {{/head}}
                             {{#other}}
                                 <tr>
                                     <td>
-                                        {{^container}}<em class="small-tab">{{/container}}
-                                        {{#plus}}
+                                        <!-- {{^container}}<em class="small-tab">{{/container}} -->
+                                        <!-- {{#plus}}
                                             <strong>
                                                 <a href="#" onclick="showMore({{target}},{{user}},16)">{{name}}</a>
                                             </strong>
-                                        {{/plus}}
-                                        {{^plus}}
+                                        {{/plus}} -->
+                                        <!-- {{^plus}} -->
                                             <a href="#" onclick="newSelectedObject({{id}},{{user}})">{{name}}</a>
-                                        {{/plus}}
-                                        {{^container}}</em>{{/container}}
+                                        <!-- {{/plus}} -->
+                                        <!-- {{^container}}</em>{{/container}} -->
                                     </td>
                                 </tr>
                             {{/other}}

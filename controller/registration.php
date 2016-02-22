@@ -1,6 +1,7 @@
 <?php
 
 use \model\Users as Users;
+use \model\Objects as Objects;
 
 class Registration extends Controller
 {
@@ -31,14 +32,28 @@ class Registration extends Controller
                 //modifier le numéro de téléphone afin de correspondre à la BD
                 $phone = self::normalizePhoneNumber($phone);
                 //vérifier si informations valides (email + pass)
-                if ((Users::getUserIdByName($email) == -1) && ($pass == $passCheck)) 
+                if ((Users::getUserIdByName($email) == -1) && ($pass == $passCheck))
                 {
                     $salt = self::generateSalt();
                     $crypt = crypt($pass, $salt);
                     $userId = Users::addFamilyOwner($email, $phone, $firstName, $lastName, $crypt, $salt);
+
+                    $owner = $userId;
+                    $name = "Contenant principal";
+                    $parent = null;
+                    $value = 0;
+                    $initValue = 0;
+                    $warranty = "";
+                    $infos = "";
+                    $summary = "Contenant de départ";
+                    $public = 1;
+                    $quantity = 1;
+
+                    Objects::addObject($name, $owner, $parent, $value, $initValue, $warranty, $infos, $summary, $public, $quantity);
+
                     header(CONNECTION_HEADER . '/registration');
 
-                    
+
                     if(isset($userId))
                     {
 					    $user = Users::getUser($userId);
@@ -46,15 +61,15 @@ class Registration extends Controller
                         $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 						$to = "";
 						$recipients = Users::getAllAdminMail();
-						
+
 						foreach($recipients as $recipient)
 						{
                             $to .= $recipient . ', ';
 						}
 						substr($to, 0, -2);
-						
+
 			            $subject = "Nouvelle demande de patrimoine";
-			
+
                         $data = array(
                             'path' => SERVER_ABSOLUTE_PATH ."/sysadmin",
                             'user' => $user["UserName"],
@@ -62,8 +77,8 @@ class Registration extends Controller
                         );
                         $mustache = new Mustache_Engine();
                         mail($to,$subject , $mustache->render(file_get_contents('public/html/mailtemplateregistration.html'), $data), $headers . "From: " . SENDING_EMAIL);
-                    }  					
-                } 
+                    }
+                }
                 else //erreur, redirige vers page d'inscription avec message d'erreur
                 {
                     $data = array
@@ -108,17 +123,17 @@ class Registration extends Controller
 
         return $result;
     }
-    
+
     //Normaliser les numéros de téléphones.
     static function normalizePhoneNumber($_phone)
     {
         $phone = preg_replace("/[^0-9]/", "", $_phone);
-            
+
         if(strlen($phone) == 10)
         {
             $phone = "1" . $phone;
         }
-        
+
         return $phone;
     }
 }

@@ -150,7 +150,7 @@ class ManageItems extends Controller
                         "container" => $container,"contentvalue" => $contentvalue);
         return $array;
     }
-	
+
 	/*
 	 *Fonction retournant tous les contenants racine du chef de famille
 	 *Correction 2016
@@ -161,12 +161,12 @@ class ManageItems extends Controller
 		$arrayContainersRacine = array();
 		if(!is_null(objects::getRacinesContainers($_SESSION["id"])))
 		{
-			array_push($arrayContainersRacine , objects::getRacinesContainers($_SESSION["id"]));	
+			array_push($arrayContainersRacine , objects::getRacinesContainers($_SESSION["id"]));
 		}
-		
+
 		if(!is_null(objects::getRacinesContainers($OwnerId)))
 		{
-			array_push($arrayContainersRacine ,objects::getRacinesContainers($OwnerId));	
+			array_push($arrayContainersRacine ,objects::getRacinesContainers($OwnerId));
 		}
 		return $arrayContainersRacine;
 	}
@@ -184,13 +184,13 @@ class ManageItems extends Controller
 		$racineContainer = $grandparent["ObjectId"];
 		$grandparent = $grandparent["ObjectContainer"];
         $nomParent ="";
- 
+
 		$enfantsSelected = Objects::getAllVisibleObjectsInContainer($object["ObjectId"], $_userId);
         array_push($array,Array("name" => $object["ObjectName"] , "id" => $object["ObjectId"],"head" => true, "container"=> $enfantsSelected, "link" => false));
         $enfants = Objects::getAllVisibleObjectsInContainer($racineContainer,$_userId);
         $i = 0;
         $more = false;
-		
+
         foreach($enfants as $enfant){
             if($i < $_nbShow)
             {
@@ -203,7 +203,7 @@ class ManageItems extends Controller
 					if(empty($Contains))
 						$Contains = null;
 					array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "other" => true, "container" => $Contains, "link" => true));
-					$i++;				
+					$i++;
 				}
             }
             else
@@ -397,7 +397,7 @@ class ManageItems extends Controller
         $familyOwner = (int)self::getFamilyOwner($_SESSION["id"]);
         $objet = Objects::getFirstRacine($familyOwner);
 		$id = -1;
-		if(!empty($objet) || !is_null($object))
+		if(!empty($objet) && !is_null($objet))
 		{
 			$id = (int)$objet[0][0];
 		}
@@ -479,10 +479,10 @@ class ManageItems extends Controller
                 fclose($fp);
 
                 Resources::addImage($_POST["objectId"], $content);
-				
-				
+
+
 				sleep(3);
-				
+
             }
         }
     }
@@ -754,7 +754,7 @@ class ManageItems extends Controller
                                 "containerQuantity" => $container["ObjectQuantity"],
                                 "total" => (Objects::getVisibleObjectContentValue($_ObjetId,$_SESSION["id"]) + Objects::getObjectValue($_ObjetId)) * Objects::getObjectQuantity($_ObjetId),
                                 "objects" => $_VisibleObj);
-        
+
         for($i = 0; $i < count($objects);$i++){
             $objects = Objects::getAllVisibleObjectsInContainer($_VisibleObj[$i]["ObjectId"],$_SESSION["id"]);
 
