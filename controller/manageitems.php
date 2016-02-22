@@ -704,76 +704,59 @@ class ManageItems extends Controller
     {
         $objectId = $_POST["object"];
         $objects = Objects::getAllVisibleObjectsInContainer($objectId,$_SESSION["id"]);
+        $ObjectArr = [];
+        $ObjContainer = [];
         $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
 
-        for($i = 0; $i < count($objects); $i++)
-        {
-            $objects[$i]["ObjectIsLent"] = $objects[$i]["ObjectIsLent"] == 0 ? "Non" : "Oui";
-
-            if($objects[$i]["ObjectEndWarranty"] == "0000-00-00")
-            {
-                $objects[$i]["ObjectEndWarranty"] = "-";
-            }
-
-            $sum += ($objects[$i]["ObjectInitialValue"] * $objects[$i]["ObjectQuantity"]) * Objects::getObjectQuantity($objectId);
-            $sum += Objects::getVisibleObjectContentValue($objects[$i]["ObjectId"],$_SESSION["id"]) * Objects::getObjectQuantity($objectId);
-            $objects[$i]["ObjectContentValue"] = Objects::getVisibleObjectContentValue($objects[$i]["ObjectId"],$_SESSION["id"]);
-            $objects[$i]["ObjectTotalValue"] = ($objects[$i]["ObjectInitialValue"]+$objects[$i]["ObjectContentValue"]) * $objects[$i]["ObjectQuantity"];
-        }
-
-        $container = Objects::getObject($objectId);
+        $Item = selft::getOneContent($objectId,$objects, $ObjectArr, $ObjContainer, 0);
 
         $user = Users::getUser($_SESSION["id"]);
 
         $data = array(
-            "containerValue" => Objects::getObjectValue($objectId),
             "name" => $user["UserInfoFirstName"] . " " . $user["UserInfoLastName"],
             "date" => date("Y-m-j"),
-            "objects" => $objects,
-            "total" => (Objects::getVisibleObjectContentValue($objectId,$_SESSION["id"]) + Objects::getObjectValue($objectId)) * Objects::getObjectQuantity($objectId),
-            "container" => $container["ObjectName"],
-            "containerId" => $container["ObjectId"],
-            "containerQuantity" => $container["ObjectQuantity"]
+            "container" => $Item
         );
 
         $this->renderTemplate(file_get_contents("public/html/report.html"), $data);
     }
 
-    function getOneContent($_ObjetId){
-        $objects = Objects::getAllVisibleObjectsInContainer($objectId,$_SESSION["id"]);
+    function getOneContent($_ObjetId, $_VisibleObj,$_ObjectArr, $_Objcontainer, $_nb){
         $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
 
-        for($i = 0; $i < count($objects); $i++)
+        for($i = 0; $i < count($_VisibleObj); $i++)
         {
-            $objects[$i]["ObjectIsLent"] = $objects[$i]["ObjectIsLent"] == 0 ? "Non" : "Oui";
+            $_VisibleObj[$i]["ObjectIsLent"] = $_VisibleObj[$i]["ObjectIsLent"] == 0 ? "Non" : "Oui";
 
-            if($objects[$i]["ObjectEndWarranty"] == "0000-00-00")
+            if($_VisibleObj[$i]["ObjectEndWarranty"] == "0000-00-00")
             {
-                $objects[$i]["ObjectEndWarranty"] = "-";
+                $_VisibleObj[$i]["ObjectEndWarranty"] = "-";
             }
 
-            $sum += ($objects[$i]["ObjectInitialValue"] * $objects[$i]["ObjectQuantity"]) * Objects::getObjectQuantity($objectId);
-            $sum += Objects::getVisibleObjectContentValue($objects[$i]["ObjectId"],$_SESSION["id"]) * Objects::getObjectQuantity($objectId);
-            $objects[$i]["ObjectContentValue"] = Objects::getVisibleObjectContentValue($objects[$i]["ObjectId"],$_SESSION["id"]);
-            $objects[$i]["ObjectTotalValue"] = ($objects[$i]["ObjectInitialValue"]+$objects[$i]["ObjectContentValue"]) * $objects[$i]["ObjectQuantity"];
+            $sum += ($_VisibleObj[$i]["ObjectInitialValue"] * $_VisibleObj[$i]["ObjectQuantity"]) * Objects::getObjectQuantity($objectId);
+            $sum += Objects::getVisibleObjectContentValue($_VisibleObj[$i]["ObjectId"],$_SESSION["id"]) * Objects::getObjectQuantity($objectId);
+            $_VisibleObj[$i]["ObjectContentValue"] = Objects::getVisibleObjectContentValue($_VisibleObj[$i]["ObjectId"],$_SESSION["id"]);
+            $_VisibleObj[$i]["ObjectTotalValue"] = ($_VisibleObj[$i]["ObjectInitialValue"]+$_VisibleObj[$i]["ObjectContentValue"]) * $_VisibleObj[$i]["ObjectQuantity"];
         }
 
+
         $container = Objects::getObject($objectId);
+        $_Objcontainer[$_nb] = array(
+                                "containerValue" => Objects::getObjectValue($_ObjetId)
+                                "container" => $container["ObjectName"],
+                                "containerId" => $container["ObjectId"],
+                                "containerQuantity" => $container["ObjectQuantity"],
+                                "total" => (Objects::getVisibleObjectContentValue($_ObjetId,$_SESSION["id"]) + Objects::getObjectValue($_ObjetId)) * Objects::getObjectQuantity($_ObjetId),
+                                "objects" => $_VisibleObj);
+        
+        for($i = 0; $i < count($objects);$i++){
+            $objects = Objects::getAllVisibleObjectsInContainer($_VisibleObj[$i]["ObjectId"],$_SESSION["id"]);
 
-        $user = Users::getUser($_SESSION["id"]);
+            $tempo = self::getOneContent($_VisibleObj[$i]["ObjectId"],$objects,$_ObjectArr,$_Objcontainer,$_nb + 1);
 
-        $data = array(
-            "containerValue" => Objects::getObjectValue($objectId),
-            "name" => $user["UserInfoFirstName"] . " " . $user["UserInfoLastName"],
-            "date" => date("Y-m-j"),
-            "objects" => $objects,
-            "total" => (Objects::getVisibleObjectContentValue($objectId,$_SESSION["id"]) + Objects::getObjectValue($objectId)) * Objects::getObjectQuantity($objectId),
-            "container" => $container["ObjectName"],
-            "containerId" => $container["ObjectId"],
-            "containerQuantity" => $container["ObjectQuantity"]
-        );
-
-        return $data;
+            $_Objcontainer.push($tempo);
+        }
+        return $_Objcontainer;
     }
 
 

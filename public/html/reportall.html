@@ -21,6 +21,7 @@
         <div class="columns">
             <h1>Rapport de {{name}}</h1>
             <h1 class="subheader">{{date}}</h1>
+            {{#container}}
             <hr>
             <h1>Conteneur : {{container}}</h1>
             <h1 class="subheader">Valeur du conteneur: {{containerValue}}$</h1>
@@ -58,6 +59,8 @@
                 </tbody>
             </table>
             <h1>Valeur Totale : {{total}}$</h1>
+            <br>
+            {{/container}}
             <a id="printReport" class="button hide-for-print">Imprimer <i class="fa fa-print"></i></a>
         </div>
     </div>
