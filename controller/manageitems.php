@@ -4,6 +4,7 @@ use \model\Users as Users;
 use \model\Resources as Resources;
 use \model\Loans as Loans;
 
+set_time_limit(0);
 class ManageItems extends Controller
 {
     function ManageItems()
@@ -479,7 +480,7 @@ class ManageItems extends Controller
                 Resources::addImage($_POST["objectId"], $content);
 				
 				
-				sleep(3);
+				sleep(1);
 				
             }
         }
