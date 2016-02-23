@@ -397,7 +397,7 @@ class ManageItems extends Controller
         $familyOwner = (int)self::getFamilyOwner($_SESSION["id"]);
         $objet = Objects::getFirstRacine($familyOwner);
 		$id = -1;
-		if(!empty($objet))
+		if(!empty($objet) || !is_null($object))
 		{
 			$id = (int)$objet[0][0];
 		}
