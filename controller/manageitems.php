@@ -396,7 +396,8 @@ class ManageItems extends Controller
         //Obtenir l'objet de base du user en cours
         $familyOwner = (int)self::getFamilyOwner($_SESSION["id"]);
         $objet = Objects::getFirstRacine($familyOwner);
-		if(!is_null($objet))
+		$id = -1;
+		if(!empty($objet))
 		{
 			$id = (int)$objet[0][0];
 		}
@@ -480,7 +481,7 @@ class ManageItems extends Controller
                 Resources::addImage($_POST["objectId"], $content);
 				
 				
-				sleep(1);
+				sleep(3);
 				
             }
         }
