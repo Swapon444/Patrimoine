@@ -184,7 +184,8 @@ class ManageItems extends Controller
 		$grandparent = $grandparent["ObjectContainer"];
         $nomParent ="";
  
-        //array_push($array,Array("name" => $object["ObjectName"] , "id" => $object["ObjectId"],"head" => true, "link" => false));
+		$enfantsSelected = Objects::getAllVisibleObjectsInContainer($object["ObjectId"], $_userId);
+        array_push($array,Array("name" => $object["ObjectName"] , "id" => $object["ObjectId"],"head" => true, "container"=> $enfantsSelected, "link" => false));
         $enfants = Objects::getAllVisibleObjectsInContainer($racineContainer,$_userId);
         $i = 0;
         $more = false;
@@ -192,23 +193,26 @@ class ManageItems extends Controller
         foreach($enfants as $enfant){
             if($i < $_nbShow)
             {
-                $nomEnfant = $enfant["ObjectName"];
-                $idEnfant = $enfant["ObjectId"];
-                $Contains = Objects::getAllVisibleObjectsInContainer($idEnfant, $_userId);
-                $container = isset($Contains[0]);
-				if(empty($Contains))
-					$Contains = null;
-                array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "other" => true, "container" => $Contains, "link" => false));
-                $i++;
+				if($object["ObjectId"] != $enfant["ObjectId"])
+				{
+					$nomEnfant = $enfant["ObjectName"];
+					$idEnfant = $enfant["ObjectId"];
+					$Contains = Objects::getAllVisibleObjectsInContainer($idEnfant, $_userId);
+					$container = isset($Contains[0]);
+					if(empty($Contains))
+						$Contains = null;
+					array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "other" => true, "container" => $Contains, "link" => true));
+					$i++;				
+				}
             }
-            /*else
+            else
             {
                 if(!$more)
                 {
                     $more = true;
                     array_push($array, Array("name" => "Plus...", "id" => "-1", "other" => true, "container" => true, "plus" => true, "nb" => $_nbShow, "target" => $_objectId));
                 }
-            }*/
+            }
         }
         return ($array);
     }
