@@ -171,7 +171,7 @@ class ManageItems extends Controller
 		return $arrayContainersRacine;
 	}
 
-    /*
+   /*
      * Fonction retournant un tableau contenant le parent et les enfants de l'objet reçu en paramètre,
      * avec des propriétés pour affichage dans tableaux de navigations.
      */
@@ -179,18 +179,20 @@ class ManageItems extends Controller
     {
         $object = Objects::getObject($_objectId);
         $array = Array();
-        $parent = $object["ObjectContainer"];
-		$grandparent = Objects::getObject($parent);
-		$racineContainer = $grandparent["ObjectId"];
-		$grandparent = $grandparent["ObjectContainer"];
-        $nomParent ="";
-
+		$racine = $object;
+		$contenantprincipal = $object["ObjectContainer"];
+		while($contenantprincipal != null)
+		{
+			$racine = Objects::getObject($contenantprincipal);
+			$contenantprincipal = $racine["ObjectContainer"];
+		}
+		$racine = $racine["ObjectId"];
 		$enfantsSelected = Objects::getAllVisibleObjectsInContainer($object["ObjectId"], $_userId);
         array_push($array,Array("name" => $object["ObjectName"] , "id" => $object["ObjectId"],"head" => true, "container"=> $enfantsSelected, "link" => false));
-        $enfants = Objects::getAllVisibleObjectsInContainer($racineContainer,$_userId);
+        $enfants = Objects::getAllVisibleObjectsInContainer($racine,$_userId);
         $i = 0;
         $more = false;
-
+		
         foreach($enfants as $enfant){
             if($i < $_nbShow)
             {
@@ -203,7 +205,7 @@ class ManageItems extends Controller
 					if(empty($Contains))
 						$Contains = null;
 					array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "other" => true, "container" => $Contains, "link" => true));
-					$i++;
+					$i++;				
 				}
             }
             else
