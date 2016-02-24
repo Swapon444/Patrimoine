@@ -750,7 +750,7 @@ class ManageItems extends Controller
 
         $container = Objects::getObject($objectId);
         $_Objcontainer[$_nb] = array(
-                                "containerValue" => Objects::getObjectValue($_ObjetId)
+                                "containerValue" => Objects::getObjectValue($_ObjetId),
                                 "container" => $container["ObjectName"],
                                 "containerId" => $container["ObjectId"],
                                 "containerQuantity" => $container["ObjectQuantity"],
