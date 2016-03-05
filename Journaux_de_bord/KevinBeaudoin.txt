@@ -1,4 +1,8 @@
-﻿22/02/2016
+﻿24/02/2016
+
+8:15-11:50  :   Documentation et règlage du bug de redirection de page (rapport complet)
+
+22/02/2016
 
 13:40-16:30 :	Création du rapport très très complet. Compréhension avancé de mustache et son utilisation. Incomplet (impossible de tester
 
