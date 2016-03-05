@@ -1,4 +1,19 @@
-﻿=== 22 février 2016 ===
+﻿=== 4 mars 2016 ===
+
+	14h00-19h45:	Finir l'indentation des objets dans le patrimoine (une 
+			grosse partie du code de l'affichage à été refait) dans le html,
+			javascript et php
+	
+===============================================================================
+
+=== 25 février 2016 ===
+
+	12h50-16h25:	Continuer de travailler sur l'indentation des objets avec
+			Francis
+											
+===============================================================================
+
+=== 22 février 2016 ===
 
 	12h50-16h25:	Ajout d'un contenant principal lorsqu'un nouvel
 			administrateur de patrimoine s'inscrit.

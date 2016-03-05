@@ -3,7 +3,7 @@
     use \repository\Db as Db;
     class Objects
     {
-    
+
         //Obtenir les informations de l'objet, selon le ID en paramètre.
         static function getObject($_objectId)
         {
@@ -11,7 +11,7 @@
             FROM Objects
             WHERE ObjectId = ?", $_objectId);
         }
-        
+
         //Obtenir tous les objets qui sont dans un conteneur.
         static function getAllObjectsInContainer($_containerId)
         {
@@ -30,7 +30,7 @@
                 ORDER BY ObjectName", $_containerId);
             }
         }
-        
+
         //Obtenir le nom de tous les objets qui sont dans un conteneur.
         static function getAllObjectsNameInContainer($_containerId,$_user)
         {
@@ -49,13 +49,13 @@
 
             return $collection;
         }
-        
+
         //Obtenir tous les objets qui sont dans un conteneur selon les droits d'un utilisateur.
         static function getAllVisibleObjectsInContainer($_containerId, $_userId)
         {
             $objectsInContainer = self::getAllObjectsInContainer($_containerId);
             $visibleObjects = array();
-            
+
             foreach($objectsInContainer as $object)
             {
                 if(self::isObjectVisibleByUser($object["ObjectId"], $_userId))
@@ -63,19 +63,19 @@
                     array_push($visibleObjects, $object);
                 }
             }
-            
+
             return $visibleObjects;
         }
-        
+
         //Obtenir tous les objets d'une famille.
         static function getObjectsByFamily($_familyId)
         {
             return Db::query("SELECT ObjectId, ObjectOwner, ObjectName, ObjectValue, ObjectInitialValue, ObjectEndWarranty, ObjectContainer, ObjectInfo, ObjectSummary, ObjectGPS, ObjectIsLent, ObjectIsPublic, ObjectQuantity
-            FROM (Objects INNER JOIN Users ON ObjectOwner = UserId) 
-            INNER JOIN UserInfos ON  UserInfo = UserInfoId 
+            FROM (Objects INNER JOIN Users ON ObjectOwner = UserId)
+            INNER JOIN UserInfos ON  UserInfo = UserInfoId
             WHERE UserInfoFamilyOwner = ?", $_familyId);
         }
-        
+
         //Obtenir la valeur d'un objet.
         static function getObjectValue($_objectId)
         {
@@ -132,7 +132,7 @@
 
             return $totalValue;
         }
-        
+
         //Pour savoir si l'objet est visible par un utilisateur.
         static function isObjectVisibleByUser($_objectId, $_userId)
         {
@@ -220,7 +220,7 @@
                 }
             }
         }
-        
+
         //Pour savoir si l'objet est public.
         static function isObjectPublic($_objectId)
         {
@@ -238,7 +238,7 @@
                                         array($_userId,$_objectId));
             return $recordCount[0] > 0;
         }
-        
+
         //Pour savoir si l'objet est un conteneur.
         static function isObjectContainer($_objectId)
         {
@@ -248,7 +248,7 @@
             $recordCount = $count[0];
             return ($recordCount > 0);
         }
-        
+
         //Pour savoir si l'objet a été prêté.
         static function isObjectLent($_objectId)
         {
@@ -258,11 +258,11 @@
             $recordCount = $count[0];
             return ($recordCount > 0);
         }
-        
+
         //Mettre à jours tous les informations d'un objet.
         static function updateObject($_objectId, $_name, $_value, $_initialValue, $_endWarranty, $_info, $_summary, $_quantity)
         {
-            return Db::execute("UPDATE Objects 
+            return Db::execute("UPDATE Objects
             SET ObjectName = ?,
             ObjectValue = ?,
             ObjectInitialValue = ?,
@@ -280,12 +280,12 @@
                                 SET ObjectIsPublic = ?
                                 WHERE ObjectID = ?",array($_public,$_objectId));
         }
-        
+
         //Mettre à jour les coordonnées GPS d'un objet.
         static function updateGPS($_objectId, $_gps)
         {
             return Db::execute("UPDATE Objects
-            SET ObjectGPS = ? 
+            SET ObjectGPS = ?
             WHERE ObjectId = ?", array($_gps, $_objectId));
         }
 
@@ -296,14 +296,14 @@
                                 SET ObjectContainer = ?
                                 WHERE ObjectId = ?",array($_target,$_objectId));
         }
-        
+
         //Ajouter un objet dans la base de données.
         static function addObject($_name, $_owner, $_container, $_value, $_initialValue, $_endWarranty, $_info, $_summary, $_isPublic, $_quantity)
         {
             return Db::createLastID("INSERT INTO Objects
             (ObjectOwner,
             ObjectContainer,
-            ObjectName, 
+            ObjectName,
             ObjectValue,
             ObjectInitialValue,
             ObjectEndWarranty,
@@ -321,7 +321,7 @@
                 (RightExceptionUser, RightExceptionObject)
                 VALUES (?, ?)", array($_userId, $_objectId));
         }
-        
+
         //Supprimer un objet.
         static function deleteObject($_objectId)
         {
@@ -335,20 +335,20 @@
             return Db::execute("DELETE FROM RightExceptions
                                 WHERE RightExceptionObject = ? AND RightExceptionUser = ?",Array($_objectId,$_userId));
         }
-		
+
 		//Obtient le id du conteneur principale
 		static function getRacinesContainersId($_userid)
 		{
 			return Db::query("SELECT ObjectId FROM Objects WHERE ObjectContainer is NULL AND ObjectOwner =?",$_userid);
 		}
-		
+
 		//Obtient les conteneur principals
 		static function getConteneursPrincipals($_userid)
 		{
 			return Db::query("SELECT * FROM Objects WHERE ObjectContainer =?", $id);
 		}
-		
-		
+
+
 		//Obtient le premier conteneur racine
 		static function getFirstRacine($_userOwnerID)
 		{

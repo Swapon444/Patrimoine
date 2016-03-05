@@ -15,7 +15,7 @@
         <script src="{{PUBLIC_ABSOLUTE_PATH}}/libs/modernizr.min.js"></script>
     </head>
 
-    <body>
+    <body onload="initItems({{user}})">
 
         <!-- Barre de navigation -->
         <nav class="top-bar" data-topbar role="navigation">
@@ -146,7 +146,7 @@
                                             </strong>
                                         {{/plus}} -->
                                         <!-- {{^plus}} -->
-                                            <a href="#" onclick="newSelectedObject({{id}},{{user}})">{{name}}</a>
+                                            <!-- <a href="#" onclick="newSelectedObject({{id}},{{user}})">{{name}}</a> -->
                                         <!-- {{/plus}} -->
                                         <!-- {{^container}}</em>{{/container}} -->
                                     </td>

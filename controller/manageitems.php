@@ -23,7 +23,7 @@ class ManageItems extends Controller
             {
                 $familyOwner = self::getFamilyOwner($_SESSION["id"]);
                 $id = $_id;
-                $array = self::loadObjectArray($id,$_SESSION["id"],8);
+                $array = self::loadObjectArray($id,$_SESSION["id"], PHP_INT_MAX);
                 $hasParent = ($array[0]["link"]);
                 $infos = self::loadObjectInfo($id,$_SESSION["id"]);
                 $famille = self::loadFamilyUsers($_SESSION["id"],$id);
@@ -178,6 +178,7 @@ class ManageItems extends Controller
     function loadObjectArray($_objectId,$_userId,$_nbShow)
     {
         $object = Objects::getObject($_objectId);
+        $_nbShow = PHP_INT_MAX;
         $array = Array();
 		$racine = $object;
 		$contenantprincipal = $object["ObjectContainer"];
@@ -188,25 +189,25 @@ class ManageItems extends Controller
 		}
 		$racine = $racine["ObjectId"];
 		$enfantsSelected = Objects::getAllVisibleObjectsInContainer($object["ObjectId"], $_userId);
-        array_push($array,Array("name" => $object["ObjectName"] , "id" => $object["ObjectId"],"head" => true, "container"=> $enfantsSelected, "link" => false));
-        $enfants = Objects::getAllVisibleObjectsInContainer($racine,$_userId);
-        $i = 0;
-        $more = false;
-		
+    array_push($array,Array("name" => $object["ObjectName"] , "id" => $object["ObjectId"],"head" => true, "container"=> $enfantsSelected, "link" => false));
+    $enfants = Objects::getAllVisibleObjectsInContainer($racine,$_userId);
+    $i = 0;
+    $more = false;
+
         foreach($enfants as $enfant){
             if($i < $_nbShow)
             {
-				if($object["ObjectId"] != $enfant["ObjectId"])
-				{
-					$nomEnfant = $enfant["ObjectName"];
-					$idEnfant = $enfant["ObjectId"];
-					$Contains = Objects::getAllVisibleObjectsInContainer($idEnfant, $_userId);
-					$container = isset($Contains[0]);
-					if(empty($Contains))
-						$Contains = null;
-					array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "other" => true, "container" => $Contains, "link" => true));
-					$i++;				
-				}
+      				if($object["ObjectId"] != $enfant["ObjectId"])
+      				{
+      					$nomEnfant = $enfant["ObjectName"];
+      					$idEnfant = $enfant["ObjectId"];
+      					$Contains = Objects::getAllVisibleObjectsInContainer($idEnfant, $_userId);
+      					$container = isset($Contains[0]);
+      					if(empty($Contains))
+      						$Contains = null;
+      					array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "other" => true, "container" => $Contains, "link" => true));
+      					$i++;
+      				}
             }
             else
             {
@@ -219,6 +220,103 @@ class ManageItems extends Controller
         }
         return ($array);
     }
+
+    function loadObjectArrayRacine($_objectId,$_userId,$_nbShow)
+    {
+      $object = Objects::getObject($_objectId);
+      $tree = [];
+
+      while ($object["ObjectContainer"] != null)
+      {
+        array_push($tree, $object);
+        $object = Objects::getObject($object["ObjectContainer"]);
+      }
+      array_push($tree, $object);
+
+      for ($i = 0; $i < count($tree); $i++)
+      {
+        $tree[$i]["head"] = ($i == 0);
+        $tree[$i]["container"] = Objects::getAllVisibleObjectsInContainer($tree[$i]["ObjectId"], $_userId);
+
+        if ($i != 0)
+        {
+          for ($j = 0; $j < count($tree[$i]["container"]) ; $j++)
+          {
+            if ($tree[$i]["container"][$j]["ObjectId"] == $tree[$i - 1]["ObjectId"])
+            {
+              $tree[$i]["container"][$j] = $tree[$i - 1];
+            }
+          }
+        }
+      }
+
+      $result = $tree[count($tree) - 1]["container"];
+      return ($result);
+
+        /*$object = Objects::getObject($_objectId);
+        //$_nbShow = PHP_INT_MAX;
+        $array = Array();
+		$racine = $object;
+		$contenantprincipal = $object["ObjectContainer"];
+		while($contenantprincipal != null)
+
+		{
+			$racine = Objects::getObject($contenantprincipal);
+			$contenantprincipal = $racine["ObjectContainer"];
+		}
+		$racine = $racine["ObjectId"];
+        $enfants = Objects::getAllVisibleObjectsInContainer($racine,$_userId);
+        //$i = 0;
+        //$more = false;
+
+        foreach($enfants as $enfant){
+            /*if($i < $_nbShow)
+            {
+      				/*if($object["ObjectId"] != $enfant["ObjectId"])
+      				{
+      					$nomEnfant = $enfant["ObjectName"];
+      					$idEnfant = $enfant["ObjectId"];
+      					$Contains = Objects::getAllVisibleObjectsInContainer($idEnfant, $_userId);
+                //$Contains = self::getChilds($Contains);
+                if ($_objectId == $idEnfant)
+                {
+                  array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "head" => true, "other" => true, "container" => $Contains, "link" => true));
+                }
+                else
+                {
+                  array_push($array, Array("name" => $nomEnfant, "id" => $idEnfant, "head" => false, "other" => true, "container" => $Contains, "link" => true));
+                }
+      					//$i++;
+      				//}
+            /*}
+            /*else
+            {
+                if(!$more)
+                {
+                    $more = true;
+                    array_push($array, Array("name" => "Plus...", "id" => "-1", "other" => true, "container" => true, "plus" => true, "nb" => $_nbShow, "target" => $_objectId));
+                }
+            }
+        }*/
+        //return ($array);
+    }
+
+    /*function getChilds($_childs)
+    {
+      for ($i = 0; $i < count($_childs); $i++)
+      {
+        $result = objects::getAllVisibleObjectsInContainer($_childs[$i], $_SESSION["id"]);
+        if(isset($result))
+        {
+          $result2 = self::getChilds($result);
+          if(result2 != null)
+          {
+            $_childs[$i]["container"] = $result2;
+          }
+        }
+      }
+      return $_childs;
+    }*/
 
     /*
      * Fonction retournant un tableau contenant tous les objets contenant la chaîne recherchée
@@ -325,6 +423,11 @@ class ManageItems extends Controller
     function getTableau()
     {
         echo json_encode(self::loadObjectArray($_POST["object"],$_POST["user"],$_POST["nb"]));
+    }
+
+    function getTableauRacine()
+    {
+        echo json_encode(self::loadObjectArrayRacine($_POST["object"],$_POST["user"],$_POST["nb"]));
     }
 
     //Retourne un json des informations de l'objet en cours, pour utilisation par AJAX
@@ -716,7 +819,7 @@ class ManageItems extends Controller
         $ObjContainer = [];
         $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
 
-        $Item = selft::getOneContent($objectId,$objects, $ObjectArr, $ObjContainer, 0);
+        $Item = self::getOneContent($objectId,$objects, $ObjectArr, $ObjContainer, 0);
 
         $user = Users::getUser($_SESSION["id"]);
 
