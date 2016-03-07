@@ -51,6 +51,8 @@ class Resources
 			sleep(1);
 			$imagesNow = Resources::getImage($_objectId);
 			$imgNow = count($imagesNow);
+			echo $imgLast;
+			echo $imgNow;
 		} while($imgLast == $imgNow);
 
 
