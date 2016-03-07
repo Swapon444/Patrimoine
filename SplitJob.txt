@@ -1,57 +1,53 @@
 JOB FINI :
 
-• Les photos n’apparaissent pas toujours au bon endroit. (Mike) OK
+• [BUG #1] Les photos n’apparaissent pas toujours au bon endroit. (Mike) OK
  
-• Glisser-déposer une image ici ne fonctionne pas bien.  (Marc) OK
+• [BUG #2] Glisser-déposer une image ici ne fonctionne pas bien.  (Marc) OK
 
-• Redirection Ajouter Modifier Image (Mike)  OK
+• [BUG #3] Redirection Ajouter Modifier Image (Mike)  OK
 
-• Multiplication Image  (Marc) OK
+• [BUG #4] Multiplication Image  (Marc et Mike) OK
 
-• Standardiser la dimension des photos	  (Mike) OK	       
+• [BUG #5] Standardiser la dimension des photos	  (Mike) OK	       
 
-• Dans modifier, corriger date de fin de garantie : enlever aucune garantie du champ. (Mike) OK
+• [BUG #6] Dans modifier, corriger date de fin de garantie : enlever aucune garantie du champ. (Mike) OK
 
-• Corriger l'affichage du site sur mobile (Marc) OK
+• [BUG #7] Corriger l'affichage du site sur mobile (Marc) OK
 
-• Page de login : S’inscrire enregistre les infos mais ne les affichent pas dans Comptes pour validation. (Kevin) OK
+• [BUG #8] Page de login : S’inscrire enregistre les infos mais ne les affichent pas dans Comptes pour validation. (Kevin) OK
 
-• La validation userinfostatus dans la table userinfo demeure donc à zéro. (Kevin) OK
+• [BUG #9] La validation userinfostatus dans la table userinfo demeure donc à zéro. (Kevin) OK
 
-• Vérifier le contenu des rapports (Kevin)
+• [BUG #10] Vérifier le contenu des rapports (Kevin)
 
-• Bug ImageID Section Patrimoine. (Mike)
+• [BUG #11] Bug ImageID Section Patrimoine. (Mike)
 
-• Bug : No image (quand on cancel l’ajout d’image) (Mike)
+• [BUG #12] Bug : No image (quand on cancel l’ajout d’image) (Mike)
 
-• Ajouter le nom du conteneur sur l’étiquette du code QR. (Kevin)
+• [BUG #13] Ajouter le nom du conteneur sur l’étiquette du code QR. (Kevin)
 
-• Corriger la fonction ajout de zone (les zones se multiplient) sur la photo d’un conteneur. (Marc)
+• [BUG #14] Corriger la fonction ajout de zone (les zones se multiplient) sur la photo d’un conteneur. (Marc)
 
-• Ajouter un conteneur principal manuellement suite à la validation d’un nouvel utilisateur et se re
+• [BUG #15] Ajouter un conteneur principal manuellement suite à la validation d’un nouvel utilisateur et se re
 
   connecter pour que ça fonctionne. (Marc)
 
+• [BUG #16] Indenter le contenu des contenants dans l’arborescence. (Frank + Marc)
 
+• [BUG #17] Utiliser une barre de défilement verticale et horizontal plutôt que le « Plus… » (Frank)
+
+• [BUG #18] Émettre un rapport Complet (Kevin)
+
+• [BUG #19] Upload Image ne fonctionne pas toujours dans la section Patrimoine (Mike)
 
 
 FRANK :
 
-
-	• Indenter le contenu des contenants dans l’arborescence. (Frank)
-
-	• Utiliser une barre de défilement verticale et horizontal plutôt que le « Plus… » (Frank)
-
 	• Documentation
-
-	
-
-
 
 MIKE :
 
 	• Documentation
-
 
 MARC :
 	
@@ -60,3 +56,7 @@ MARC :
 
 KEVIN :
 	• Documentation
+
+
+
+
