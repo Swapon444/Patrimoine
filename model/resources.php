@@ -7,9 +7,60 @@ class Resources
     //Insérer une image dans la base de données
     static function addImage($_objectId, $_image)
     {
+		set_time_limit(0);
+		//set_init_time(0);
+		// $objectLast = Db::query("SELECT TOP 1 ImageId FROM Images ORDER BY ImageID DESC");
+		
+		
+	  //  $objectLast = Db->prepare("SELECT Last(Tables.ImageId) FROM Images");
+	//	$objectLast.execute();
+		
+		//$imgID = $objectLast->fetch()["ImageId"];
+		//echo $imgID."<br>";
+		
+		//Db::execute("INSERT INTO Images (ImageObject, ImageBlob) VALUES (?, ?)", array($_objectId, $_image));
+		
+	/*	do 
+		{
+			sleep(1);
+			//$objectLast = Db->prepare("SELECT Last(ImageId) FROM Images");
+			//$objectLast.execute();
+			$objectNow = Db::query("SELECT Last(ImageId) FROM Images");
+			$imgIDNow = $objectNow->fetch()["ImageId"];
+			
+			echo $imgIDNow."<br>";		
+	
+		}while ($imgIDNow == $imgID);*/
+
+		$images = Resources::getImage($_POST['objectId']);
+		$imgLast = count($images);
+				
+		Db::execute("INSERT INTO Images (ImageObject, ImageBlob) VALUES (?, ?)", array($_objectId, $_image));
+		
+	//	sleep(2);
+		
+		//$imagesNow = Resources::getImage($_objectId);
+	//	$imgNow = count($imagesNow);
+		
+	//	echo $imgLast;
+	//	echo $imgNow;
+		
+		
+		do
+		{
+			sleep(1);
+			$imagesNow = Resources::getImage($_objectId);
+			$imgNow = count($imagesNow);
+		} while($imgLast == $imgNow);
+
+
+		 return ;
+		
+		
+		/*
         return Db::execute("INSERT INTO Images
         (ImageObject, ImageBlob)
-        VALUES (?, ?)", array($_objectId, $_image));
+        VALUES (?, ?)", array($_objectId, $_image));*/
 		
     }
 

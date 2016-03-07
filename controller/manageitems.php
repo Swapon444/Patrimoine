@@ -575,6 +575,10 @@ class ManageItems extends Controller
         {
             if($_FILES['file']['type'] == 'image/jpeg' || $_FILES['file']['type'] == 'image/png')
             {
+				
+
+				
+				
                 $tmpName = $_FILES['file']['tmp_name'];
                 $fileSize = $_FILES['file']['size'];
                 $fileType = $_FILES['file']['type'];
@@ -582,11 +586,15 @@ class ManageItems extends Controller
                 $fp = fopen($tmpName, 'r');
                 $content = fread($fp, filesize($tmpName));
                 fclose($fp);
-
+				
                 Resources::addImage($_POST["objectId"], $content);
 
 
-				sleep(3);
+				
+				
+				
+				
+				//sleep(3);
 
             }
         }
