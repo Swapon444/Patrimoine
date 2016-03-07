@@ -821,30 +821,44 @@ class ManageItems extends Controller
      */
     function generateReportAll()
     {
+        //Obtient la racine
         $objectId = $_POST["object"];
+        //Obtient tous les objets en dessous de la racine
         $objects = Objects::getAllVisibleObjectsInContainer($objectId,$_SESSION["id"]);
-        $ObjectArr = [];
-        $ObjContainer = [];
-        $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
 
-        $Item = self::getOneContent($objectId,$objects, $ObjectArr, $ObjContainer, 0);
+        $ObjContainer = [];
+        //Obtient la valeur de la racine
+        $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
+        //Obtient un array de array de tout l'architecture
+        //$Item = self::getOneContent($objectId,$objects,$ObjContainer, 0);
+		$Item = self::loadObjectArrayRacine($objectId,$_SESSION["id"],10);
 
         $user = Users::getUser($_SESSION["id"]);
 
         $data = array(
+			"RacineID" => $objectId,
             "name" => $user["UserInfoFirstName"] . " " . $user["UserInfoLastName"],
             "date" => date("Y-m-j"),
-            "container" => $Item
+            "lescontenants" => $Item
         );
 
         $this->renderTemplate(file_get_contents("public/html/report.html"), $data);
     }
+    /*
+    _ObjetId : Id du conteneur
+    _VisibleObj : Liste d'objet visible
+    _Objcontainer : Tout les contenants
+    _Nb : Nombre de contenant
 
-    function getOneContent($_ObjetId, $_VisibleObj,$_ObjectArr, $_Objcontainer, $_nb){
-        $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
+    */
+    function getOneContent($_ObjetId, $_VisibleObj, $_Objcontainer, $_nb){
+        //Obtient la valeur du premier objet
+        $sum = Objects::getObjectValue($_ObjetId) * Objects::getObjectQuantity($_ObjetId);
 
+        //Pour tous les objets visible dans le contenant
         for($i = 0; $i < count($_VisibleObj); $i++)
         {
+            //Obtient donnée
             $_VisibleObj[$i]["ObjectIsLent"] = $_VisibleObj[$i]["ObjectIsLent"] == 0 ? "Non" : "Oui";
 
             if($_VisibleObj[$i]["ObjectEndWarranty"] == "0000-00-00")
@@ -852,29 +866,39 @@ class ManageItems extends Controller
                 $_VisibleObj[$i]["ObjectEndWarranty"] = "-";
             }
 
-            $sum += ($_VisibleObj[$i]["ObjectInitialValue"] * $_VisibleObj[$i]["ObjectQuantity"]) * Objects::getObjectQuantity($objectId);
-            $sum += Objects::getVisibleObjectContentValue($_VisibleObj[$i]["ObjectId"],$_SESSION["id"]) * Objects::getObjectQuantity($objectId);
+            $sum += ($_VisibleObj[$i]["ObjectInitialValue"] * $_VisibleObj[$i]["ObjectQuantity"]) * Objects::getObjectQuantity($_ObjetId);
+            $sum += Objects::getVisibleObjectContentValue($_VisibleObj[$i]["ObjectId"],$_SESSION["id"]) * Objects::getObjectQuantity($_ObjetId);
             $_VisibleObj[$i]["ObjectContentValue"] = Objects::getVisibleObjectContentValue($_VisibleObj[$i]["ObjectId"],$_SESSION["id"]);
             $_VisibleObj[$i]["ObjectTotalValue"] = ($_VisibleObj[$i]["ObjectInitialValue"]+$_VisibleObj[$i]["ObjectContentValue"]) * $_VisibleObj[$i]["ObjectQuantity"];
         }
 
-
-        $container = Objects::getObject($objectId);
-        $_Objcontainer[$_nb] = array(
+        //Get container
+        $container = Objects::getObject($_ObjetId);
+		
+		
+		
+        //Ajoute le contenants et ces objets
+        array_push($_Objcontainer,array(
                                 "containerValue" => Objects::getObjectValue($_ObjetId),
-                                "container" => $container["ObjectName"],
-                                "containerId" => $container["ObjectId"],
+                                "containerName" => $container["ObjectName"],
                                 "containerQuantity" => $container["ObjectQuantity"],
+								"containerValue" => $sum,
                                 "total" => (Objects::getVisibleObjectContentValue($_ObjetId,$_SESSION["id"]) + Objects::getObjectValue($_ObjetId)) * Objects::getObjectQuantity($_ObjetId),
-                                "objects" => $_VisibleObj);
+                                "Lesobjets" => $_VisibleObj
+                                ));
 
-        for($i = 0; $i < count($objects);$i++){
+        //Pour chaque objet en dessous de la racine, Appelle la fonction en le prenant comme container
+        for($i = 0; $i < count($_VisibleObj);$i++){
+            //Obtient tous les objets visible
             $objects = Objects::getAllVisibleObjectsInContainer($_VisibleObj[$i]["ObjectId"],$_SESSION["id"]);
-
-            $tempo = self::getOneContent($_VisibleObj[$i]["ObjectId"],$objects,$_ObjectArr,$_Objcontainer,$_nb + 1);
-
-            $_Objcontainer.push($tempo);
+			
+            //Appelle la fonction
+			if(count($objects) > 0){
+				$tempo = self::getOneContent($_VisibleObj[$i]["ObjectId"],$objects,$_Objcontainer,$_nb);
+			}
         }
+
+        //Retourne le tableau de tableau
         return $_Objcontainer;
     }
 
