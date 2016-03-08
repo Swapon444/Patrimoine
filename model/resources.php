@@ -32,7 +32,7 @@ class Resources
 	
 		}while ($imgIDNow == $imgID);*/
 
-		$images = Resources::getImage($_POST['objectId']);
+		$images = Resources::getImage($_objectId);
 		$imgLast = count($images);
 				
 		Db::execute("INSERT INTO Images (ImageObject, ImageBlob) VALUES (?, ?)", array($_objectId, $_image));
@@ -45,15 +45,20 @@ class Resources
 	//	echo $imgLast;
 	//	echo $imgNow;
 		
-		
+/*
 		do
 		{
+			$imageNow = null;
 			sleep(1);
 			$imagesNow = Resources::getImage($_objectId);
 			$imgNow = count($imagesNow);
-			echo $imgLast;
-			echo $imgNow;
-		} while($imgLast == $imgNow);
+		 //	$imgExist = $imageNow[$imgNow - 1]["ImageBlob"];
+			
+		//	echo $imgLast."<br>";
+		//	echo $imgNow."<br>";
+		//	echo $imgExist;
+
+		} while($imgLast == $imgNow);*/
 
 
 		 return ;

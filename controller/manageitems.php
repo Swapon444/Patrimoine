@@ -571,13 +571,17 @@ class ManageItems extends Controller
      */
     function uploadImage()
     {
+		$coucou = 0;
+		
         if(!empty($_FILES) && $_FILES['file']['size'] > 0)
         {
+			$coucou = 1;
+			
             if($_FILES['file']['type'] == 'image/jpeg' || $_FILES['file']['type'] == 'image/png')
             {
 				
 
-				
+				$coucou = 2;
 				
                 $tmpName = $_FILES['file']['tmp_name'];
                 $fileSize = $_FILES['file']['size'];
@@ -589,15 +593,12 @@ class ManageItems extends Controller
 				
                 Resources::addImage($_POST["objectId"], $content);
 
-
-				
-				
-				
-				
 				//sleep(3);
 
             }
         }
+		
+		echo $coucou;
     }
 
     /**
@@ -611,12 +612,15 @@ class ManageItems extends Controller
 
         $images = Resources::getImage($_POST['objectId']);
 
+	//	var_dump(count($images));
+		
 		$tabImage = null;
 
         for($i = 0; $i < count($images); $i++)
         {
             $tabImage[$i]["ImageBlob"] = "data:image;base64," . base64_encode($images[$i]["ImageBlob"]);
 			$tabImage[$i]["ImageId"] = $images[$i]["ImageId"];
+				
         }
 
         echo json_encode($tabImage);
