@@ -30,7 +30,7 @@ JOB FINI :
 
 • [BUG #15] Ajouter un conteneur principal manuellement suite à la validation d’un nouvel utilisateur et se re
 
-  connecter pour que ça fonctionne. (Marc)
+  connecter pour que ça fonctionne. (Marc + Frank)
 
 • [BUG #16] Indenter le contenu des contenants dans l’arborescence. (Frank + Marc)
 
