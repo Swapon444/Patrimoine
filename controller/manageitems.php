@@ -224,7 +224,7 @@ class ManageItems extends Controller
     function loadObjectArrayRacine($_objectId,$_userId,$_nbShow)
     {
       $object = Objects::getObject($_objectId);
-      $tree = [];
+      $tree = Array();
 
       while ($object["ObjectContainer"] != null)
       {
@@ -830,7 +830,7 @@ class ManageItems extends Controller
         //Obtient tous les objets en dessous de la racine
         $objects = Objects::getAllVisibleObjectsInContainer($objectId,$_SESSION["id"]);
 
-        $ObjContainer = [];
+        $ObjContainer = Array();
         //Obtient la valeur de la racine
         $sum = Objects::getObjectValue($objectId) * Objects::getObjectQuantity($objectId);
         //Obtient un array de array de tout l'architecture
