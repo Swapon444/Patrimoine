@@ -1,5 +1,3 @@
-JOB FINI :
-
 • [BUG #1] Les photos n’apparaissent pas toujours au bon endroit. (Mike) OK
  
 • [BUG #2] Glisser-déposer une image ici ne fonctionne pas bien.  (Marc) OK
@@ -40,23 +38,4 @@ JOB FINI :
 
 • [BUG #19] Upload Image ne fonctionne pas toujours dans la section Patrimoine (Mike)
 
-
-FRANK :
-
-	• Documentation
-
-MIKE :
-
-	• Documentation
-
-MARC :
-	
-	• Documentation
-
-
-KEVIN :
-	• Documentation
-
-
-
-
+• [BUG #20] Corriger l’emplacement du nom de fichier (Marc)

@@ -1,4 +1,10 @@
-﻿=== 4 mars 2016 ===
+﻿=== 11 mars 2016 ===
+
+	19h00-22h30:	Documentation
+	
+===============================================================================
+
+=== 4 mars 2016 ===
 
 	14h00-19h45:	Finir l'indentation des objets dans le patrimoine (une 
 			grosse partie du code de l'affichage à été refait) dans le html,
